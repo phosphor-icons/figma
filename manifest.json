@@ -1,0 +1,7 @@
+{
+  "name": "Phosphor Icons",
+  "id": "892854133443228626",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html"
+}

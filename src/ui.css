@@ -1,0 +1,46 @@
+body {
+  font: 12px sans-serif;
+  text-align: center;
+  margin: 0px;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  flex: 1;
+  padding: 4px;
+  overflow-y: scroll;
+}
+
+.icon {
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.1s;
+}
+
+.icon:hover {
+  background-color: rgba(163, 159, 171, 0.2);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: auto;
+  padding: 0 16px 4px;
+}
+
+.empty-state p {
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

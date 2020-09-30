@@ -1,0 +1,21 @@
+menu.toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  background-color: #2c2c2c;
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.toolbar-contents {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  padding: 0 4px 8px;
+}
+
+.toolbar-contents > * {
+  margin: 8px 4px 0;
+}
