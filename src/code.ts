@@ -1,6 +1,6 @@
 figma.showUI(__html__, { width: 362, height: 320 });
 
-let offset = 0;
+let xOffset = 0;
 
 figma.ui.onmessage = ({ type, payload }) => {
   switch (type) {
@@ -8,7 +8,7 @@ figma.ui.onmessage = ({ type, payload }) => {
       const node = figma.createNodeFromSvg(payload.svg);
       node.name = payload.name;
       node.constrainProportions = true;
-      node.x += offset++ * 32;
+      node.x += xOffset++ * 32;
 
       const group = figma.group(node.children, node);
       group.name = payload.name;

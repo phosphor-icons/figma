@@ -1,40 +1,29 @@
-Below are the steps to get your plugin running. You can also find instructions at:
+# Phosphor Icons
 
-  https://www.figma.com/plugin-docs/setup/
+Phosphor Icons is a flexible icon family in 6 weights. We aim to provide consistency, variety, and above all, ease-of-use for creators of all kinds. Browse the library on [our website](https://phosphoricons.com).
 
-This plugin template uses Typescript and NPM, two standard tools in creating JavaScript applications.
+## Figma Plugin
 
-First, download Node.js which comes with NPM. This will allow you to install TypeScript and other
-libraries. You can find the download link here:
 
-  https://nodejs.org/en/download/
 
-Next, install TypeScript using the command:
+### Raw Assets
 
-  npm install -g typescript
+Download our [asset kit](https://www.phosphoricons.com/assets/phosphor-icons.zip) to start working with Phosphor Icons in your designs.
 
-Finally, in the directory of your plugin, get the latest type definitions for the plugin API by running:
+- **SVGs** – Individual icon SVGs, in both minified and original formats retaining design-time detail.
+- **Icon Font** – Use the icons as you would text, in print and other applications where full-fledged graphical elements are undesirable.
 
-  npm install --save-dev @figma/plugin-typings
+<!-- ### Source Files
+- **Sketch**
+- **Illustrator**
+- **Figma** -->
 
-If you are familiar with JavaScript, TypeScript will look very familiar. In fact, valid JavaScript code
-is already valid Typescript code.
+## Related Projects
 
-TypeScript adds type annotations to variables. This allows code editors such as Visual Studio Code
-to provide information about the Figma API while you are writing code, as well as help catch bugs
-you previously didn't notice.
+- [phosphor-react](https://github.com/phosphor-icons/phosphor-react) ▲ Phosphor icon component library for React
+- [phosphor-vue](https://github.com/phosphor-icons/phosphor-vue) ▲ Phosphor icon component library for Vue
+- [phosphor-icons](https://github.com/phosphor-icons/phosphor-icons) ▲ Phosphor icons for Vanilla JS
 
-For more information, visit https://www.typescriptlang.org/
+## License
 
-Using TypeScript requires a compiler to convert TypeScript (code.ts) into JavaScript (code.js)
-for the browser to run.
-
-We recommend writing TypeScript code using Visual Studio code:
-
-1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
-2. Open this directory in Visual Studio Code.
-3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
-    then select "tsc: watch - tsconfig.json". You will have to do this again every time
-    you reopen Visual Studio Code.
-
-That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
+GPL-3.0 © [Phosphor Icons](https://github.com/phosphor-icons)
