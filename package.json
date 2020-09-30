@@ -1,7 +1,27 @@
 {
   "name": "phosphor-figma",
   "version": "0.5.1",
-  "description": "Your Figma Plugin",
+  "license": "GPL-3.0",
+  "homepage": "https://phosphoricons.com",
+  "author": {
+    "name": "Tobias Fried",
+    "email": "friedtm@gmail.com",
+    "url": "https://tobiasfried.com"
+  },
+  "description": "A flexible icon family for interfaces, diagrams, presentations — whatever, really.",
+  "keywords": [
+    "phosphor",
+    "icons",
+    "svg",
+    "design",
+    "interface",
+    "UI",
+    "UX",
+    "figma",
+    "figma-plugin"
+  ],
+  "repository": "github:phosphor-icons/phosphor-figma",
+  "private": false,
   "main": "src/index.js",
   "scripts": {
     "ts:build": "tsc -p tsconfig.json",
@@ -9,8 +29,6 @@
     "start": "npx webpack --mode=development --watch",
     "build": "npx webpack --mode=production"
   },
-  "author": "",
-  "license": "",
   "devDependencies": {
     "@figma/plugin-typings": "^1.16.1",
     "@types/react": "^16.9.49",
