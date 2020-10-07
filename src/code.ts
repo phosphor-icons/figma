@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 362, height: 320 });
+figma.showUI(__html__, { width: 362, height: 490 });
 
 let xOffset = 0;
 
