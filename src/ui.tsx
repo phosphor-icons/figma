@@ -5,6 +5,7 @@ import "./ui.css";
 
 import Toolbar from "./components/Toolbar/Toolbar";
 import IconGrid from "./components/IconGrid/IconGrid";
+import Footer from "./components/Footer/Footer";
 
 // declare function require(path: string): any
 
@@ -36,6 +37,7 @@ class App extends React.Component {
           <Suspense fallback={<p>Loading...</p>}>
             <IconGrid />
           </Suspense>
+          <Footer />
         </div>
       </RecoilRoot>
     );

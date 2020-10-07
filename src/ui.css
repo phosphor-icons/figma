@@ -4,6 +4,11 @@ body {
   margin: 0px;
 }
 
+a {
+  color: black;
+  margin-left: 4px;
+}
+
 .app {
   height: 100vh;
   display: flex;
@@ -13,6 +18,7 @@ body {
 .grid {
   flex: 1;
   padding: 4px;
+  margin-bottom: 34px;
   overflow-y: scroll;
 }
 
@@ -34,6 +40,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100%;
+  max-width: 313px;
   margin: auto;
   padding: 0 16px 4px;
 }
@@ -43,4 +50,17 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  background-color: white;
+  box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.15);
+  gap: 4px;
 }
