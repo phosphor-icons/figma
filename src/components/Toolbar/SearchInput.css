@@ -7,7 +7,7 @@
   border-radius: 4px;
   box-sizing: border-box;
   /* color: white; */
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #F6F6F6;
 }
 
 .search-bar:focus-within {
