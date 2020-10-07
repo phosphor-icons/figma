@@ -5,8 +5,8 @@
   height: 36px;
   padding: 0 12px;
   border-radius: 4px;
+  border: 1px solid transparent;
   box-sizing: border-box;
-  /* color: white; */
   background-color: #F6F6F6;
 }
 
@@ -31,7 +31,6 @@
 
 .search-bar input:focus {
   outline: none !important;
-  border-color: inherit;
   -webkit-box-shadow: none;
   box-shadow: none;
   color: black;
