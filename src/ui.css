@@ -18,7 +18,7 @@ a {
 .grid {
   flex: 1;
   padding: 4px;
-  margin-bottom: 34px;
+  margin-bottom: 40px;
   overflow-y: scroll;
 }
 
@@ -41,7 +41,7 @@ a {
   justify-content: center;
   height: 100%;
   max-width: 313px;
-  margin: auto;
+  margin: 16px;
   padding: 0 16px 4px;
 }
 
@@ -62,5 +62,4 @@ a {
   padding: 8px 0;
   background-color: white;
   box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.15);
-  gap: 4px;
 }
