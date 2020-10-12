@@ -2,7 +2,7 @@
 
 # Phosphor Icons
 
-Phosphor Icons is a flexible icon family in 6 weights. We aim to provide consistency, variety, and above all, ease-of-use for creators of all kinds. Browse the library on [our website](https://phosphoricons.com).
+Phosphor is a flexible icon family for interfaces, diagrams, presentations — whatever, really. Explore all our icons at [phosphoricons.com](https://phosphoricons.com).
 
 ## Figma Plugin
 
