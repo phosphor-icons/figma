@@ -6,11 +6,11 @@ Phosphor is a flexible icon family for interfaces, diagrams, presentations — w
 
 ## Figma Plugin
 
+Browse, search, and copy into your project all from within Figma! To install, visit our [community page](https://www.figma.com/community/plugin/892854133443228626/Phosphor-Icons).
 
+## Raw Assets
 
-### Raw Assets
-
-Download our [asset kit](https://www.phosphoricons.com/assets/phosphor-icons.zip) to start working with Phosphor Icons in your designs.
+If you'd like to use the assets directly, you can download our [asset kit](https://www.phosphoricons.com/assets/phosphor-icons.zip).
 
 - **SVGs** – Individual icon SVGs, in both minified and original formats retaining design-time detail.
 - **Icon Font** – Use the icons as you would text, in print and other applications where full-fledged graphical elements are undesirable.
