@@ -726,6 +726,7 @@ export const icons: ReadonlyArray<IconEntry> = [
     categories: [IconCategory.BUSINESS, IconCategory.FINANCE],
     tags: [
       "banking",
+      "money",
       "checking",
       "savings",
       "deposit",
@@ -1697,6 +1698,7 @@ export const icons: ReadonlyArray<IconEntry> = [
       "debit",
       "visa",
       "mastercard",
+      "money",
       "payment",
       "paying",
       "purchase",
@@ -4520,7 +4522,7 @@ export const icons: ReadonlyArray<IconEntry> = [
   {
     name: "receipt",
     categories: [IconCategory.BUSINESS, IconCategory.FINANCE],
-    tags: ["purchased", "clipping", "expenses"],
+    tags: ["purchased", "money", "clipping", "expenses"],
     Icon: Icon.Receipt,
   },
   {
