@@ -6,9 +6,12 @@ figma.ui.onmessage = ({ type, payload }) => {
   switch (type) {
     case "insert":
       const node = figma.createNodeFromSvg(payload.svg);
+      const { x, y } = figma.viewport.center;
       node.name = payload.name;
       node.constrainProportions = true;
-      node.x += xOffset++ * 32;
+      node.x = x;
+      node.y = y;
+      figma.viewport.center = { x: x + 32, y };
 
       const group = figma.group(node.children, node);
       group.name = payload.name;
@@ -17,7 +20,6 @@ figma.ui.onmessage = ({ type, payload }) => {
       group.children.forEach((child) => ungroup(child, group));
 
       figma.currentPage.selection = [node];
-      figma.viewport.scrollAndZoomIntoView([node]);
       break;
   }
 };
