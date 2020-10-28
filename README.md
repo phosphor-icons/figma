@@ -6,7 +6,7 @@ Phosphor is a flexible icon family for interfaces, diagrams, presentations — w
 
 ## Figma Plugin
 
-Browse, search, and copy into your project all from within Figma! To install, visit our [community page](https://www.figma.com/community/plugin/892854133443228626/Phosphor-Icons).
+Browse, search, and copy into your project all from within Figma! To install, visit our [community page](https://www.figma.com/community/plugin/898620911119764089/Phosphor-Icons).
 
 ## Raw Assets
 
