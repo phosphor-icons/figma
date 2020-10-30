@@ -82,7 +82,7 @@ const StyleInput: React.FC<StyleInputProps> = () => {
         </div>
       )}
       dropdownHandleRenderer={({ state }) =>
-        state.dropdown ? <CaretDown /> : <CaretUp />
+        state.dropdown ? <CaretUp /> : <CaretDown />
       }
     />
   );
