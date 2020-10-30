@@ -27,7 +27,7 @@ const IconGrid: React.FC<{}> = () => {
   if (!icons.length)
     return (
       <div className="empty-state">
-        <SmileyXEyes size={128} weight="duotone" color="#424242" />
+        <SmileyXEyes size={128} weight="duotone" color="#2C2C2C" />
         <p>
           No results for "<code>{query}"</code>
         </p>
