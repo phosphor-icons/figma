@@ -2708,10 +2708,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-phosphor-react@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/phosphor-react/-/phosphor-react-1.0.0.tgz#8d46a3a81ad9fc8bf6e3dd9d33920a8888fbd663"
-  integrity sha512-JT6xJDFS3Mkk6DoyLIqLGdtXfuPktHbBj2McLrrnlksNkMDePT4AzNDCUUxmRAHRlbFDZudX0DKHM7DwqMZf+A==
+phosphor-react@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/phosphor-react/-/phosphor-react-1.1.0.tgz#d48a03d0bd65e23d9964bd4c599d7f8c513ccc5a"
+  integrity sha512-G428F/37vszGHBGV9E1mCK+4rooulsMFjhT+sOv3JzEeiSSRPyPwv7qJ5A2MNQ73JuR1uLJ0THGSjmSWlM8k/w==
 
 picomatch@^2.0.4, picomatch@^2.0.5, picomatch@^2.2.1:
   version "2.2.2"
