@@ -22,7 +22,7 @@
   ],
   "repository": "github:phosphor-icons/phosphor-figma",
   "private": false,
-  "main": "src/index.js",
+  "main": "dist/code.js",
   "scripts": {
     "ts:build": "tsc -p tsconfig.json",
     "ts:start": "tsc -w",
