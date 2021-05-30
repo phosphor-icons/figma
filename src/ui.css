@@ -4,6 +4,10 @@ body {
   margin: 0px;
 }
 
+body.inherit-cursors * {
+  cursor: inherit !important;
+}
+
 a {
   color: black;
   margin-left: 4px;
@@ -22,16 +26,32 @@ a {
   overflow-y: scroll;
 }
 
+.icon-wrapper {
+  display: inline-block;
+}
+
+.icon-wrapper:active {
+  cursor: grabbing !important;
+}
+
+/* .icon:active {
+  cursor: grabbing !important;
+} */
+
 .icon {
   padding: 8px;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: grab;
   background-color: transparent;
   transition: background-color 0.1s;
 }
 
 .icon:hover {
   background-color: rgba(163, 159, 171, 0.2);
+}
+
+.icon-wrapper:active .icon {
+  background-color: none;
 }
 
 .empty-state {

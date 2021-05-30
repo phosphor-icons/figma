@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useCallback } from "react";
 import { useRecoilValue } from "recoil";
 import { IconContext, SmileyXEyes } from "phosphor-react";
 
@@ -8,10 +8,16 @@ import {
   searchQueryAtom,
 } from "../../state";
 
+interface Position {
+  x: number;
+  y: number;
+}
+
 const IconGrid: React.FC<{}> = () => {
   const weight = useRecoilValue(iconWeightAtom);
   const icons = useRecoilValue(filteredQueryResultsSelector);
   const query = useRecoilValue(searchQueryAtom);
+  const dragStartRef = useRef<Position>();
 
   const handleCopyToWorkspace = (
     event: React.MouseEvent<SVGElement, MouseEvent>,
@@ -23,6 +29,41 @@ const IconGrid: React.FC<{}> = () => {
       "*"
     );
   };
+
+  const handleDragStart = useCallback((e: React.DragEvent<HTMLSpanElement>) => {
+    const { offsetX, offsetY } = e.nativeEvent;
+    e.dataTransfer.effectAllowed = "copyMove";
+    e.dataTransfer.dropEffect = "copy";
+
+    document.body.classList.add("inherit-cursors");
+    document.body.style.cursor = "grab";
+
+    dragStartRef.current = { x: offsetX, y: offsetY };
+  }, []);
+
+  const handleDragEnd = useCallback(
+    (e: React.DragEvent<HTMLSpanElement>, name: string) => {
+      document.body.classList.remove("inherit-cursors");
+      document.body.style.cursor = "unset";
+
+      const { clientX, clientY, view } = e.nativeEvent;
+      if (view.length === 0) return;
+
+      const payload = {
+        name,
+        svg: e.currentTarget.innerHTML,
+        dropPosition: { clientX, clientY },
+        windowSize: {
+          width: window.outerWidth,
+          height: window.outerHeight,
+        },
+        offset: dragStartRef.current,
+      };
+
+      parent.postMessage({ pluginMessage: { type: "drop", payload } }, "*");
+    },
+    []
+  );
 
   if (!icons.length)
     return (
@@ -40,7 +81,14 @@ const IconGrid: React.FC<{}> = () => {
         value={{ size: 32, color: "black", weight, mirrored: false }}
       >
         {icons.map(({ Icon }) => (
-          <span key={Icon.displayName} title={Icon.displayName}>
+          <div
+            className="icon-wrapper"
+            draggable
+            onDragStart={handleDragStart}
+            onDragEnd={(e) => handleDragEnd(e, Icon.displayName)}
+            key={Icon.displayName}
+            title={Icon.displayName}
+          >
             <Icon
               className="icon"
               key={Icon.displayName}
@@ -48,7 +96,7 @@ const IconGrid: React.FC<{}> = () => {
                 handleCopyToWorkspace(event, Icon.displayName)
               }
             />
-          </span>
+          </div>
         ))}
       </IconContext.Provider>
     </div>
