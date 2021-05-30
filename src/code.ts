@@ -9,6 +9,7 @@ interface DropPayload {
   foo: number;
 }
 
+let hasTriedDragAndDrop = false;
 let xOffset = 0;
 
 figma.ui.onmessage = ({ type, payload }) => {
@@ -17,6 +18,7 @@ figma.ui.onmessage = ({ type, payload }) => {
       insertIcon(payload);
       break;
     case "drop":
+      hasTriedDragAndDrop = true;
       dropIcon(payload);
       break;
     case "log":
@@ -37,7 +39,14 @@ function insertIcon(payload: { name: string; svg: string }) {
   node.children.forEach((child) => ungroup(child, node));
 
   figma.currentPage.selection = [node];
-  figma.notify(`Added ${payload.name}`, { timeout: 2000 });
+  figma.notify(`✔ Added ${payload.name}`, { timeout: 2000 });
+
+  if (!hasTriedDragAndDrop) {
+    setTimeout(() => {
+      if (!hasTriedDragAndDrop) figma.notify("💡 Try drag-and-drop too!", { timeout: 4000 });
+      hasTriedDragAndDrop = true;
+    }, 4000);
+  }
 }
 
 function dropIcon(payload: DropPayload) {
@@ -60,7 +69,7 @@ function dropIcon(payload: DropPayload) {
   node.children.forEach((child) => ungroup(child, node));
 
   figma.currentPage.selection = [node];
-  figma.notify(`Added ${payload.name}`, { timeout: 2000 });
+  figma.notify(`✔ Added ${payload.name}`, { timeout: 2000 });
 }
 
 function ungroup(node: SceneNode, parent: FrameNode) {

@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { IconContext, SmileyXEyes } from "phosphor-react";
 
@@ -19,6 +19,13 @@ const IconGrid: React.FC<{}> = () => {
   const query = useRecoilValue(searchQueryAtom);
   const dragStartRef = useRef<Position>();
 
+  useEffect(() => {
+    window.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "copy";
+    });
+  }, []);
+
   const handleCopyToWorkspace = (
     event: React.MouseEvent<SVGElement, MouseEvent>,
     name: string
@@ -33,19 +40,14 @@ const IconGrid: React.FC<{}> = () => {
   const handleDragStart = useCallback((e: React.DragEvent<HTMLSpanElement>) => {
     const { offsetX, offsetY } = e.nativeEvent;
     e.dataTransfer.effectAllowed = "copyMove";
-    e.dataTransfer.dropEffect = "copy";
-
-    document.body.classList.add("inherit-cursors");
-    document.body.style.cursor = "grab";
+    e.dataTransfer.setData("text/plain", e.currentTarget.innerHTML);
+    // e.dataTransfer.dropEffect = "copy";
 
     dragStartRef.current = { x: offsetX, y: offsetY };
   }, []);
 
   const handleDragEnd = useCallback(
     (e: React.DragEvent<HTMLSpanElement>, name: string) => {
-      document.body.classList.remove("inherit-cursors");
-      document.body.style.cursor = "unset";
-
       const { clientX, clientY, view } = e.nativeEvent;
       if (view.length === 0) return;
 
