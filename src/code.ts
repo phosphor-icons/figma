@@ -28,7 +28,10 @@ figma.ui.onmessage = ({ type, payload }) => {
 };
 
 function insertIcon(payload: { name: string; svg: string }) {
-  const node = figma.createNodeFromSvg(payload.svg);
+  const node = figma.group(
+    figma.createNodeFromSvg(payload.svg).children,
+    figma.currentPage
+  );
   const { x, y } = figma.viewport.center;
   node.name = payload.name;
   node.constrainProportions = true;
@@ -43,7 +46,8 @@ function insertIcon(payload: { name: string; svg: string }) {
 
   if (!hasTriedDragAndDrop) {
     setTimeout(() => {
-      if (!hasTriedDragAndDrop) figma.notify("💡 Try drag-and-drop too!", { timeout: 4000 });
+      if (!hasTriedDragAndDrop)
+        figma.notify("💡 Try drag-and-drop too!", { timeout: 4000 });
       hasTriedDragAndDrop = true;
     }, 4000);
   }
@@ -60,7 +64,10 @@ function dropIcon(payload: DropPayload) {
     : dropPosition.clientX;
   const yFromCanvas = hasUI ? dropPosition.clientY - 40 : dropPosition.clientY;
 
-  const node = figma.createNodeFromSvg(svg);
+  const node = figma.group(
+    figma.createNodeFromSvg(svg).children,
+    figma.currentPage
+  );
   node.name = name;
   node.constrainProportions = true;
   node.x = bounds.x + xFromCanvas / zoom - offset.x;
@@ -72,7 +79,7 @@ function dropIcon(payload: DropPayload) {
   figma.notify(`✔ Added ${payload.name}`, { timeout: 2000 });
 }
 
-function ungroup(node: SceneNode, parent: FrameNode) {
+function ungroup(node: SceneNode, parent: GroupNode) {
   if (node.type === "GROUP") {
     node.children.forEach((grandchild) => {
       ungroup(grandchild, parent);
