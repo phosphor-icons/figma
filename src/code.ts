@@ -28,10 +28,10 @@ figma.ui.onmessage = ({ type, payload }) => {
 };
 
 function insertIcon(payload: { name: string; svg: string }) {
-  const node = figma.group(
-    figma.createNodeFromSvg(payload.svg).children,
-    figma.currentPage
-  );
+  const tempNode = figma.createNodeFromSvg(payload.svg);
+  const node = figma.group(tempNode.children, figma.currentPage);
+  tempNode.remove();
+
   const { x, y } = figma.viewport.center;
   node.name = payload.name;
   node.constrainProportions = true;
@@ -64,10 +64,10 @@ function dropIcon(payload: DropPayload) {
     : dropPosition.clientX;
   const yFromCanvas = hasUI ? dropPosition.clientY - 40 : dropPosition.clientY;
 
-  const node = figma.group(
-    figma.createNodeFromSvg(svg).children,
-    figma.currentPage
-  );
+  const tempNode = figma.createNodeFromSvg(svg);
+  const node = figma.group(tempNode.children, figma.currentPage);
+  tempNode.remove();
+
   node.name = name;
   node.constrainProportions = true;
   node.x = bounds.x + xFromCanvas / zoom - offset.x;
@@ -76,7 +76,7 @@ function dropIcon(payload: DropPayload) {
   node.children.forEach((child) => ungroup(child, node));
 
   figma.currentPage.selection = [node];
-  figma.notify(`✔ Added ${payload.name}`, { timeout: 2000 });
+  figma.notify(`✔ Added ${name}`, { timeout: 2000 });
 }
 
 function ungroup(node: SceneNode, parent: GroupNode) {
