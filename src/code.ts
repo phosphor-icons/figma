@@ -104,6 +104,7 @@ function dropIcon(payload: DropPayload) {
   node.constrainProportions = true;
   node.x = bounds.x + xFromCanvas / zoom - offset.x;
   node.y = bounds.y + yFromCanvas / zoom - offset.y;
+  node.setPluginData(CUSTOM_NODE_KEY, "true");
 
   node.children.forEach((child) => ungroup(child, node));
 
