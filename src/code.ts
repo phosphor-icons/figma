@@ -27,9 +27,37 @@ figma.ui.onmessage = ({ type, payload }) => {
   }
 };
 
+/**
+ * Get the first selected node *or* the current page if the first node does not
+ * support children.
+ */
+function getSelectedNode() {
+  const [selectedNode] = figma.currentPage.selection;
+
+  if (!selectedNode) {
+    return figma.currentPage;
+  }
+
+  if (
+    selectedNode.type === "COMPONENT" ||
+    selectedNode.type === "FRAME" ||
+    selectedNode.type === "GROUP"
+  ) {
+    return selectedNode;
+  }
+
+  if (selectedNode.parent) {
+    return selectedNode.parent;
+  }
+
+  return figma.currentPage;
+}
+
 function insertIcon(payload: { name: string; svg: string }) {
   const tempNode = figma.createNodeFromSvg(payload.svg);
-  const node = figma.group(tempNode.children, figma.currentPage);
+  const selectedNode = getSelectedNode();
+
+  const node = figma.group(tempNode.children, selectedNode);
   tempNode.remove();
 
   const { x, y } = figma.viewport.center;
