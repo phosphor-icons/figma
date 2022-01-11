@@ -9,6 +9,7 @@ interface DropPayload {
   foo: number;
 }
 
+const CUSTOM_NODE_KEY = "isPhosphorIcon";
 let hasTriedDragAndDrop = false;
 let xOffset = 0;
 
@@ -27,11 +28,11 @@ figma.ui.onmessage = ({ type, payload }) => {
   }
 };
 
-/**
- * Get the first selected node *or* the current page if the first node does not
- * support children.
- */
-function getSelectedNode() {
+function nodeIsIcon(node: SceneNode) {
+  return node.getPluginData(CUSTOM_NODE_KEY) === "true";
+}
+
+function getSelectableNode() {
   const [selectedNode] = figma.currentPage.selection;
 
   if (!selectedNode) {
@@ -39,9 +40,10 @@ function getSelectedNode() {
   }
 
   if (
-    selectedNode.type === "COMPONENT" ||
-    selectedNode.type === "FRAME" ||
-    selectedNode.type === "GROUP"
+    !nodeIsIcon(selectedNode) &&
+    (selectedNode.type === "COMPONENT" ||
+      selectedNode.type === "FRAME" ||
+      selectedNode.type === "GROUP")
   ) {
     return selectedNode;
   }
@@ -53,9 +55,10 @@ function getSelectedNode() {
   return figma.currentPage;
 }
 
+
 function insertIcon(payload: { name: string; svg: string }) {
   const tempNode = figma.createNodeFromSvg(payload.svg);
-  const selectedNode = getSelectedNode();
+  const selectedNode = getSelectableNode();
 
   const node = figma.group(tempNode.children, selectedNode);
   tempNode.remove();
@@ -65,6 +68,7 @@ function insertIcon(payload: { name: string; svg: string }) {
   node.constrainProportions = true;
   node.x = x;
   node.y = y;
+  node.setPluginData(CUSTOM_NODE_KEY, "true");
   figma.viewport.center = { x: x + 32, y };
 
   node.children.forEach((child) => ungroup(child, node));
