@@ -28,28 +28,33 @@ figma.ui.onmessage = ({ type, payload }) => {
   }
 };
 
-type SelectableNode =
+type InjectableNode =
   | PageNode
   | FrameNode
   | GroupNode
   | ComponentNode
   | (BaseNode & ChildrenMixin);
 
-function nodeIsIcon(node: SelectableNode | SceneNode) {
+function nodeIsIcon(node: InjectableNode | SceneNode) {
   return node?.getPluginData(CUSTOM_NODE_KEY) === "true";
 }
 
-function getSelectableNode(node: SceneNode): SelectableNode {
+function nodeSupportsChildren(
+  node: SceneNode
+): node is ComponentNode | FrameNode | GroupNode {
+  return (
+    node?.type === "COMPONENT" ||
+    node?.type === "FRAME" ||
+    node?.type === "GROUP"
+  );
+}
+
+function getInjectableNode(node: SceneNode): InjectableNode {
   if (!node) {
     return figma.currentPage;
   }
 
-  if (
-    !nodeIsIcon(node) &&
-    (node.type === "COMPONENT" ||
-      node.type === "FRAME" ||
-      node.type === "GROUP")
-  ) {
+  if (!nodeIsIcon(node) && nodeSupportsChildren(node)) {
     return node;
   }
 
@@ -60,38 +65,44 @@ function getSelectableNode(node: SceneNode): SelectableNode {
   return figma.currentPage;
 }
 
-function getSelectableVector(node: SceneNode): Vector {
-  if (node && nodeIsIcon(node) && "x" in node) {
+function getOffsetVector(node: SceneNode): Vector {
+  if (nodeIsIcon(node)) {
     return {
-      x: node.x,
+      x: node.x + 32,
       y: node.y,
+    };
+  }
+
+  if (nodeSupportsChildren(node)) {
+    return {
+      x: node.width / 2 - 16,
+      y: node.height / 2 - 16,
     };
   }
 
   if (node && "width" in node) {
     return {
-      x: node.width / 2,
-      y: node.height / 2,
+      x: node.x + node.width / 2 - 16,
+      y: node.y + node.height / 2 - 16,
     };
   }
 
   return figma.viewport.center;
 }
 
-function insertIcon(payload: { name: string, svg: string }) {
+function insertIcon(payload: { name: string; svg: string }) {
   const [currentSelection] = figma.currentPage.selection;
-  const selectableNode = getSelectableNode(currentSelection);
+  const injectableNode = getInjectableNode(currentSelection);
   const tempNode = figma.createNodeFromSvg(payload.svg);
-  const node = figma.group(tempNode.children, selectableNode);
+  const node = figma.group(tempNode.children, injectableNode);
 
   tempNode.remove();
 
-  const { x, y } = getSelectableVector(currentSelection);
+  const { x, y } = getOffsetVector(currentSelection);
 
   node.name = payload.name;
   node.constrainProportions = true;
-  // Center first child and offset remaining.
-  node.x = x + (selectableNode.children.length > 1 ? 32 : -16);
+  node.x = x;
   node.y = y;
   node.setPluginData(CUSTOM_NODE_KEY, "true");
 
