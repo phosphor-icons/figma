@@ -28,48 +28,72 @@ figma.ui.onmessage = ({ type, payload }) => {
   }
 };
 
-function nodeIsIcon(node: SceneNode) {
-  return node.getPluginData(CUSTOM_NODE_KEY) === "true";
+type SelectableNode =
+  | PageNode
+  | FrameNode
+  | GroupNode
+  | ComponentNode
+  | (BaseNode & ChildrenMixin);
+
+function nodeIsIcon(node: SelectableNode | SceneNode) {
+  return node?.getPluginData(CUSTOM_NODE_KEY) === "true";
 }
 
-function getSelectableNode() {
-  const [selectedNode] = figma.currentPage.selection;
-
-  if (!selectedNode) {
+function getSelectableNode(node: SceneNode): SelectableNode {
+  if (!node) {
     return figma.currentPage;
   }
 
   if (
-    !nodeIsIcon(selectedNode) &&
-    (selectedNode.type === "COMPONENT" ||
-      selectedNode.type === "FRAME" ||
-      selectedNode.type === "GROUP")
+    !nodeIsIcon(node) &&
+    (node.type === "COMPONENT" ||
+      node.type === "FRAME" ||
+      node.type === "GROUP")
   ) {
-    return selectedNode;
+    return node;
   }
 
-  if (selectedNode.parent) {
-    return selectedNode.parent;
+  if (node.parent) {
+    return node.parent;
   }
 
   return figma.currentPage;
 }
 
+function getSelectableVector(node: SceneNode): Vector {
+  if (node && nodeIsIcon(node) && "x" in node) {
+    return {
+      x: node.x,
+      y: node.y,
+    };
+  }
 
-function insertIcon(payload: { name: string; svg: string }) {
+  if (node && "width" in node) {
+    return {
+      x: node.width / 2,
+      y: node.height / 2,
+    };
+  }
+
+  return figma.viewport.center;
+}
+
+function insertIcon(payload: { name: string, svg: string }) {
+  const [currentSelection] = figma.currentPage.selection;
+  const selectableNode = getSelectableNode(currentSelection);
   const tempNode = figma.createNodeFromSvg(payload.svg);
-  const selectedNode = getSelectableNode();
+  const node = figma.group(tempNode.children, selectableNode);
 
-  const node = figma.group(tempNode.children, selectedNode);
   tempNode.remove();
 
-  const { x, y } = figma.viewport.center;
+  const { x, y } = getSelectableVector(currentSelection);
+
   node.name = payload.name;
   node.constrainProportions = true;
-  node.x = x;
+  // Center first child and offset remaining.
+  node.x = x + (selectableNode.children.length > 1 ? 32 : -16);
   node.y = y;
   node.setPluginData(CUSTOM_NODE_KEY, "true");
-  figma.viewport.center = { x: x + 32, y };
 
   node.children.forEach((child) => ungroup(child, node));
 
