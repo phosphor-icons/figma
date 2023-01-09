@@ -11,7 +11,6 @@ interface DropPayload {
 
 const CUSTOM_NODE_KEY = "isPhosphorIcon";
 let hasTriedDragAndDrop = false;
-let xOffset = 0;
 
 figma.ui.onmessage = ({ type, payload }) => {
   switch (type) {
@@ -40,7 +39,7 @@ function nodeIsIcon(node: InjectableNode | SceneNode) {
 }
 
 function nodeSupportsChildren(
-  node: SceneNode
+  node: InjectableNode | SceneNode
 ): node is ComponentNode | FrameNode | GroupNode {
   return (
     node?.type === "COMPONENT" ||
@@ -49,7 +48,7 @@ function nodeSupportsChildren(
   );
 }
 
-function getInjectableNode(node: SceneNode): InjectableNode {
+function getInjectableNode(node: InjectableNode | SceneNode): InjectableNode {
   if (!node) {
     return figma.currentPage;
   }
@@ -59,7 +58,7 @@ function getInjectableNode(node: SceneNode): InjectableNode {
   }
 
   if (node.parent) {
-    return node.parent;
+    return getInjectableNode(node.parent);
   }
 
   return figma.currentPage;
@@ -94,8 +93,6 @@ function insertIcon(payload: { name: string; svg: string }) {
   const [currentSelection] = figma.currentPage.selection;
   const injectableNode = getInjectableNode(currentSelection);
   const frame = figma.createNodeFromSvg(payload.svg);
- 
-  figma.group([frame], injectableNode);
 
   const { x, y } = getOffsetVector(currentSelection);
 
@@ -106,6 +103,8 @@ function insertIcon(payload: { name: string; svg: string }) {
   frame.setPluginData(CUSTOM_NODE_KEY, "true");
 
   frame.children.forEach((child) => ungroup(child, frame));
+
+  injectableNode.appendChild(frame);
 
   figma.currentPage.selection = [frame];
   figma.notify(`✔ Added ${payload.name}`, { timeout: 2000 });
@@ -130,11 +129,7 @@ function dropIcon(payload: DropPayload) {
     : dropPosition.clientX;
   const yFromCanvas = hasUI ? dropPosition.clientY - 40 : dropPosition.clientY;
 
-  const tempNode = figma.createNodeFromSvg(svg);
-  const frame = figma.createFrame();
-  const node = figma.group(tempNode.children, figma.currentPage);
-  tempNode.remove();
-  frame.appendChild(node);
+  const frame = figma.createNodeFromSvg(svg);
 
   frame.name = name;
   frame.constrainProportions = true;
@@ -142,7 +137,7 @@ function dropIcon(payload: DropPayload) {
   frame.y = bounds.y + yFromCanvas / zoom - offset.y;
   frame.setPluginData(CUSTOM_NODE_KEY, "true");
 
-  frame.children.forEach((child) => ungroup(child, node));
+  frame.children.forEach((child) => ungroup(child, frame));
 
   figma.currentPage.selection = [frame];
   figma.notify(`✔ Added ${name}`, { timeout: 2000 });
