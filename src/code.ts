@@ -93,22 +93,21 @@ function getOffsetVector(node: SceneNode): Vector {
 function insertIcon(payload: { name: string; svg: string }) {
   const [currentSelection] = figma.currentPage.selection;
   const injectableNode = getInjectableNode(currentSelection);
-  const tempNode = figma.createNodeFromSvg(payload.svg);
-  const node = figma.group(tempNode.children, injectableNode);
-
-  tempNode.remove();
+  const frame = figma.createNodeFromSvg(payload.svg);
+ 
+  figma.group([frame], injectableNode);
 
   const { x, y } = getOffsetVector(currentSelection);
 
-  node.name = payload.name;
-  node.constrainProportions = true;
-  node.x = x;
-  node.y = y;
-  node.setPluginData(CUSTOM_NODE_KEY, "true");
+  frame.name = payload.name;
+  frame.constrainProportions = true;
+  frame.x = x;
+  frame.y = y;
+  frame.setPluginData(CUSTOM_NODE_KEY, "true");
 
-  node.children.forEach((child) => ungroup(child, node));
+  frame.children.forEach((child) => ungroup(child, frame));
 
-  figma.currentPage.selection = [node];
+  figma.currentPage.selection = [frame];
   figma.notify(`✔ Added ${payload.name}`, { timeout: 2000 });
 
   if (!hasTriedDragAndDrop) {
@@ -132,22 +131,24 @@ function dropIcon(payload: DropPayload) {
   const yFromCanvas = hasUI ? dropPosition.clientY - 40 : dropPosition.clientY;
 
   const tempNode = figma.createNodeFromSvg(svg);
+  const frame = figma.createFrame();
   const node = figma.group(tempNode.children, figma.currentPage);
   tempNode.remove();
+  frame.appendChild(node);
 
-  node.name = name;
-  node.constrainProportions = true;
-  node.x = bounds.x + xFromCanvas / zoom - offset.x;
-  node.y = bounds.y + yFromCanvas / zoom - offset.y;
-  node.setPluginData(CUSTOM_NODE_KEY, "true");
+  frame.name = name;
+  frame.constrainProportions = true;
+  frame.x = bounds.x + xFromCanvas / zoom - offset.x;
+  frame.y = bounds.y + yFromCanvas / zoom - offset.y;
+  frame.setPluginData(CUSTOM_NODE_KEY, "true");
 
-  node.children.forEach((child) => ungroup(child, node));
+  frame.children.forEach((child) => ungroup(child, node));
 
-  figma.currentPage.selection = [node];
+  figma.currentPage.selection = [frame];
   figma.notify(`✔ Added ${name}`, { timeout: 2000 });
 }
 
-function ungroup(node: SceneNode, parent: GroupNode) {
+function ungroup(node: SceneNode, parent: BaseNode & ChildrenMixin) {
   if (node.type === "GROUP") {
     node.children.forEach((grandchild) => {
       ungroup(grandchild, parent);

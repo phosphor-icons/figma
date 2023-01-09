@@ -1,10 +1,13 @@
-
 {
   "compilerOptions": {
     "target": "es6",
-    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@figma"
+    ],
     "jsx": "react",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "phosphor-figma",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "license": "MIT",
   "homepage": "https://phosphoricons.com",
   "author": {
@@ -30,26 +30,28 @@
     "build": "npx webpack --mode=production"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.16.1",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "css-loader": "^4.3.0",
+    "@figma/plugin-typings": "^1.57.1",
+    "@types/react": "^17",
+    "@types/react-dom": "^17",
+    "css-loader": "^5",
     "html-webpack-inline-source-plugin": "^1.0.0-beta.2",
-    "html-webpack-plugin": "^4.5.0",
-    "style-loader": "^1.2.1",
-    "ts-loader": "^8.0.4",
-    "typescript": "^4.0.3",
-    "url-loader": "^4.1.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
+    "html-webpack-plugin": "^4",
+    "style-loader": "^2",
+    "ts-loader": "^8",
+    "typescript": "^4.9.4",
+    "url-loader": "^4.1.1",
+    "webpack": "^4",
+    "webpack-cli": "^4"
   },
   "dependencies": {
-    "fuse.js": "^6.4.1",
-    "phosphor-react": "^1.4.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-dropdown-select": "^4.5.2",
-    "react-use": "^15.3.4",
-    "recoil": "^0.0.13"
+    "@phosphor-icons/core": "^1.4.5",
+    "fuse.js": "^6.6.2",
+    "phosphor-react": "^1.4.1",
+    "prop-types": "^15.8.1",
+    "react": "^17",
+    "react-dom": "^17",
+    "react-dropdown-select": "^4.9.2",
+    "react-use": "^17.4.0",
+    "recoil": "^0.7.6"
   }
 }
