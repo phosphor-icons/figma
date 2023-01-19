@@ -1,10 +1,11 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 import Select from "react-dropdown-select";
+import { IconStyle } from "@phosphor-icons/core";
 import { CaretDown, CaretUp, PencilLine } from "phosphor-react";
 
 import { iconWeightAtom } from "../../state";
-import { IconStyle } from "../../lib";
+
 import "./StyleInput.css";
 
 type WeightOption = { key: string; value: IconStyle; icon: JSX.Element };

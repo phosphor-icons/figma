@@ -1,11 +1,17 @@
+import { IconStyle } from "@phosphor-icons/core";
 import { atom, selector } from "recoil";
 import Fuse from "fuse.js";
 
-import { IconEntry, IconStyle } from "../lib";
+import { IconEntry } from "../lib";
 import { icons } from "../lib/icons";
 
 const fuse = new Fuse(icons, {
-  keys: [{ name: "name", weight: 4 }, "tags", "categories"],
+  keys: [
+    { name: "name", weight: 4 },
+    { name: "pascal_name", weight: 4 },
+    "tags",
+    "categories",
+  ],
   threshold: 0.2, // Tweak this to what feels like the right number of results
   // shouldSort: false,
   useExtendedSearch: true,
@@ -16,9 +22,14 @@ export const iconWeightAtom = atom<IconStyle>({
   default: IconStyle.REGULAR,
 });
 
-export const searchQueryAtom = atom({
+export const searchQueryAtom = atom<string>({
   key: "searchQueryAtom",
   default: "",
+});
+
+export const flattenAtom = atom<boolean>({
+  key: "flattenAtom",
+  default: true,
 });
 
 export const filteredQueryResultsSelector = selector<ReadonlyArray<IconEntry>>({

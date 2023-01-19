@@ -192,10 +192,10 @@
   resolved "https://registry.yarnpkg.com/@figma/plugin-typings/-/plugin-typings-1.57.1.tgz#85d3881f6a002df5f72620cd0a04816a03853341"
   integrity sha512-kwiuApuqgkIPbFKey459VspenqXlBcBoMTnTZdQ/Hk2N71BTOZ0cM5Xq3zbPW/bEQOYtGDpweWxcXYHLo19HxQ==
 
-"@phosphor-icons/core@^1.4.5":
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/@phosphor-icons/core/-/core-1.4.5.tgz#593f566a777bb533a5ce42782a9f9d6f97536cdf"
-  integrity sha512-tvigoeYKHAD8i9fAbOnYPXclzfj1x4ewQHi1iR8Om7WgzoUifvavCX7H9WIjQZ2bw7VC24rkWGvPdxzomnnkTw==
+"@phosphor-icons/core@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@phosphor-icons/core/-/core-1.4.6.tgz#f723f88bd26b6048db08021c5bc159f1e5af420d"
+  integrity sha512-fiFqgfnaUdLgSsc7j42PKBZsPH7Fam76QEPCzRFk3hwLC996Ibp+P2Krb8rMdZMG0cPW1inVMedefPnf33pW8A==
 
 "@types/html-minifier-terser@^5.0.0":
   version "5.1.2"

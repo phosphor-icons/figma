@@ -44,7 +44,7 @@
     "webpack-cli": "^4"
   },
   "dependencies": {
-    "@phosphor-icons/core": "^1.4.5",
+    "@phosphor-icons/core": "^1.4.6",
     "fuse.js": "^6.6.2",
     "phosphor-react": "^1.4.1",
     "prop-types": "^15.8.1",
