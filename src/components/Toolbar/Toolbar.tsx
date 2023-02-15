@@ -1,5 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
+import { Diamond, Stack } from "phosphor-react";
 
 import { flattenAtom } from "../../state";
 import StyleInput from "./StyleInput";
@@ -14,13 +15,17 @@ const Toolbar: React.FC<ToolbarProps> = () => {
   return (
     <menu className="toolbar" id="toolbar">
       <div className="toolbar-contents">
-        <StyleInput />
         <SearchInput />
-        <input
-          type="checkbox"
-          checked={flatten}
-          onChange={(e) => setFlatten(e.target.checked)}
-        />
+        <StyleInput />
+        <label>
+          <input
+            type="checkbox"
+            checked={flatten}
+            onChange={(e) => setFlatten(e.target.checked)}
+          />
+          {flatten ? <Diamond size={16} weight="fill" /> : <Stack size={16} />}
+          <span>{flatten ? "Flat" : "Stroke"}</span>
+        </label>
       </div>
     </menu>
   );

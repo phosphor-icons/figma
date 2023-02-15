@@ -50,7 +50,6 @@
     "prop-types": "^15.8.1",
     "react": "^17",
     "react-dom": "^17",
-    "react-dropdown-select": "^4.9.2",
     "react-use": "^17.4.0",
     "recoil": "^0.7.6"
   }

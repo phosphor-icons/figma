@@ -2,10 +2,12 @@ body {
   font: 12px sans-serif;
   text-align: center;
   margin: 0px;
+  background-color: var(--figma-color-bg);
+  color: var(--figma-color-text);
 }
 
 a {
-  color: black;
+  color: inherit;
   margin-left: 4px;
 }
 
@@ -18,7 +20,7 @@ a {
 .grid {
   flex: 1;
   padding: 4px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   overflow-y: scroll;
 }
 
@@ -40,6 +42,10 @@ a {
   cursor: grabbing;
 }
 
+.icon {
+  color: var(--figma-color-text);
+}
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -49,6 +55,7 @@ a {
   max-width: 313px;
   margin: 16px;
   padding: 0 16px 4px;
+  color: var(--figma-color-icon-warning);
 }
 
 .empty-state p {
@@ -56,6 +63,7 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--figma-color-text);
 }
 
 .footer {
@@ -67,8 +75,8 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 4px 16px;
-  background-color: white;
-  box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+  color: inherit;
+  border-top: 1px solid var(--figma-color-border);
 }
 
 .footer > .plug {

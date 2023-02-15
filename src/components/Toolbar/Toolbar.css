@@ -3,19 +3,39 @@ menu.toolbar {
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 0;
+  padding: 8px;
   z-index: 1;
-  /* background-color: #2c2c2c; */
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--figma-color-border);
 }
 
 .toolbar-contents {
   width: 100%;
   display: grid;
-  grid-template-columns: 40% 60%;
-  padding: 0 4px 8px;
+  grid-template-columns: 1fr 25% 20%;
+  gap: 4px;
 }
 
-.toolbar-contents > * {
-  margin: 8px 4px 0;
+label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 4px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+label > input {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+label:hover {
+  border: 1px solid var(--figma-color-border);
+}
+
+label:focus-within, label:active {
+  border: 1px solid var(--figma-color-border-selected);
 }

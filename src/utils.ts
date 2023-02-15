@@ -69,16 +69,8 @@ export async function fetchFlatIcon(payload: IconPayload): Promise<string> {
   if (cached) return cached;
 
   try {
-    const versionString = `%5E${MAJOR_VERSION}.${MINOR_VERSION}`;
-
-    figma.notify(
-      "⏳ Flattening icon... This will be cached for future access.",
-      {
-        timeout: 4000,
-      }
-    );
     const res = await fetch(
-      `https://unpkg.com/@phosphor-icons/core@${versionString}/assets/${payload.weight}/${fileName}.svg`
+      `https://raw.githubusercontent.com/phosphor-icons/core/main/assets/${payload.weight}/${fileName}.svg`
     );
     const text = await res.text();
 

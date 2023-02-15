@@ -21,7 +21,7 @@ function main() {
     }
   };
 
-  figma.showUI(__html__, { width: 362, height: 490 });
+  figma.showUI(__html__, { width: 362, height: 490, themeColors: true });
 }
 
 async function insertIcon(payload: IconPayload) {
@@ -42,7 +42,9 @@ async function insertIcon(payload: IconPayload) {
   frame.constrainProportions = true;
   frame.x = x;
   frame.y = y;
-  frame.children.forEach((child) => ungroup(child, frame));
+  if (!payload.flatten) {
+    frame.children.forEach((child) => ungroup(child, frame));
+  }
 
   injectableNode.appendChild(frame);
 
@@ -80,7 +82,9 @@ async function dropIcon(payload: DropPayload) {
   frame.constrainProportions = true;
   frame.x = bounds.x + xFromCanvas / zoom - offset.x;
   frame.y = bounds.y + yFromCanvas / zoom - offset.y;
-  frame.children.forEach((child) => ungroup(child, frame));
+  if (!payload.flatten) {
+    frame.children.forEach((child) => ungroup(child, frame));
+  }
 
   figma.currentPage.selection = [frame];
   figma.notify(`✅ Added ${pascal_name}`, { timeout: 2000 });

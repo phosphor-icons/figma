@@ -1,8 +1,7 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
-import Select from "react-dropdown-select";
+import { useRecoilState } from "recoil";
 import { IconStyle } from "@phosphor-icons/core";
-import { CaretDown, CaretUp, PencilLine } from "phosphor-react";
+import { PencilLine } from "phosphor-react";
 
 import { iconWeightAtom } from "../../state";
 
@@ -46,46 +45,20 @@ const options: WeightOption[] = [
 type StyleInputProps = {};
 
 const StyleInput: React.FC<StyleInputProps> = () => {
-  const setStyle = useSetRecoilState(iconWeightAtom);
-
-  const handleStyleChange = (values: WeightOption[]) =>
-    setStyle(values[0].value as IconStyle);
+  const [style, setStyle] = useRecoilState(iconWeightAtom);
 
   return (
-    <Select
-      options={options}
-      values={[options[2]]}
-      searchable={false}
-      labelField="key"
-      onChange={handleStyleChange}
-      itemRenderer={({
-        item,
-        itemIndex,
-        state: { cursor, values },
-        methods,
-      }) => (
-        <span
-          role="option"
-          aria-selected={item.key === values[0].key}
-          className={`react-dropdown-select-item ${
-            itemIndex === cursor ? "react-dropdown-select-item-active" : ""
-          }`}
-          onClick={() => methods.addItem(item)}
-        >
-          {item.icon}
-          {item.key}
-        </span>
-      )}
-      contentRenderer={({ state: { values } }) => (
-        <div className="react-dropdown-select-content">
-          {values[0].icon}
-          {values[0].key}
-        </div>
-      )}
-      dropdownHandleRenderer={({ state }) =>
-        state.dropdown ? <CaretUp /> : <CaretDown />
-      }
-    />
+    <select
+      value={style}
+      onChange={(e) => setStyle(e.target.value as IconStyle)}
+    >
+      <option value={IconStyle.THIN}>Thin</option>
+      <option value={IconStyle.LIGHT}>Light</option>
+      <option value={IconStyle.REGULAR}>Regular</option>
+      <option value={IconStyle.BOLD}>Bold</option>
+      <option value={IconStyle.FILL}>Fill</option>
+      <option value={IconStyle.DUOTONE}>Duotone</option>
+    </select>
   );
 };
 

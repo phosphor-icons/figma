@@ -78,13 +78,13 @@ const IconGrid: React.FC<{}> = () => {
 
       parent.postMessage({ pluginMessage: { type: "drop", payload } }, "*");
     },
-    []
+    [weight, flatten]
   );
 
   if (!icons.length)
     return (
       <div className="empty-state">
-        <SmileyXEyes size={128} weight="duotone" color="#2C2C2C" />
+        <SmileyXEyes size={128} weight="duotone" />
         <p>
           No results for "<code>{query}"</code>
         </p>
@@ -93,9 +93,7 @@ const IconGrid: React.FC<{}> = () => {
 
   return (
     <div className="grid">
-      <IconContext.Provider
-        value={{ size: 32, color: "black", weight, mirrored: false }}
-      >
+      <IconContext.Provider value={{ size: 32, weight }}>
         {icons.map(({ Icon, ...entry }) => (
           <div
             className="icon-wrapper"
