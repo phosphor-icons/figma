@@ -1,7 +1,9 @@
 import React, { useRef, useCallback, useEffect } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { useRecoilValue } from "recoil";
-import { IconEntry } from "@phosphor-icons/core";
-import { IconContext, SmileyXEyes } from "phosphor-react";
+import { IconContext, SmileyXEyes } from "@phosphor-icons/react";
+
+import { IconEntry } from "../../lib";
 
 import {
   iconWeightAtom,
@@ -30,11 +32,13 @@ const IconGrid: React.FC<{}> = () => {
   }, []);
 
   const handleCopyToWorkspace = (
-    event: React.MouseEvent<SVGElement, MouseEvent>,
+    _: React.MouseEvent<SVGElement, MouseEvent>,
     entry: IconEntry
   ) => {
-    const svg = event.currentTarget.outerHTML;
-    const { name, pascal_name } = entry;
+    const { name, pascal_name, Icon } = entry;
+    const svg = renderToStaticMarkup(
+      <Icon size={32} color="black" weight={weight} />
+    );
     parent.postMessage(
       {
         pluginMessage: {
@@ -50,8 +54,6 @@ const IconGrid: React.FC<{}> = () => {
     const { offsetX, offsetY } = e.nativeEvent;
     e.dataTransfer.effectAllowed = "copyMove";
     e.dataTransfer.setData("text/plain", e.currentTarget.innerHTML);
-    // e.dataTransfer.dropEffect = "copy";
-
     dragStartRef.current = { x: offsetX, y: offsetY };
   }, []);
 
@@ -60,12 +62,15 @@ const IconGrid: React.FC<{}> = () => {
       const { clientX, clientY, view } = e.nativeEvent;
       if (view.length === 0) return;
 
-      const { name, pascal_name } = entry;
+      const { name, pascal_name, Icon } = entry;
+      const svg = renderToStaticMarkup(
+        <Icon size={32} color="black" weight={weight} />
+      );
 
       const payload = {
         name,
         pascal_name,
-        svg: e.currentTarget.innerHTML,
+        svg,
         weight,
         flatten,
         dropPosition: { clientX, clientY },
@@ -94,22 +99,26 @@ const IconGrid: React.FC<{}> = () => {
   return (
     <div className="grid">
       <IconContext.Provider value={{ size: 32, weight }}>
-        {icons.map(({ Icon, ...entry }) => (
-          <div
-            className="icon-wrapper"
-            draggable
-            onDragStart={handleDragStart}
-            onDragEnd={(e) => handleDragEnd(e, entry)}
-            key={entry.pascal_name}
-            title={entry.pascal_name}
-          >
-            <Icon
-              className="icon"
+        {icons.map((entry) => {
+          const { Icon } = entry;
+
+          return (
+            <div
+              className="icon-wrapper"
+              draggable
+              onDragStart={handleDragStart}
+              onDragEnd={(e) => handleDragEnd(e, entry)}
               key={entry.pascal_name}
-              onClick={(event) => handleCopyToWorkspace(event, entry)}
-            />
-          </div>
-        ))}
+              title={entry.pascal_name}
+            >
+              <Icon
+                className="icon"
+                key={entry.pascal_name}
+                onClick={(event) => handleCopyToWorkspace(event, entry)}
+              />
+            </div>
+          );
+        })}
       </IconContext.Provider>
     </div>
   );

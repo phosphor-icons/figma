@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { Diamond, Stack } from "phosphor-react";
+import { BoundingBox, Diamond, Square, Stack } from "@phosphor-icons/react";
 
 import { flattenAtom } from "../../state";
 import StyleInput from "./StyleInput";
@@ -17,14 +17,29 @@ const Toolbar: React.FC<ToolbarProps> = () => {
       <div className="toolbar-contents">
         <SearchInput />
         <StyleInput />
-        <label>
+        <label
+          tabIndex={0}
+          title={`"Flat" icons are condensed into a single path.\n\n"Raw" icons contain the original strokes.\nChoose this option if you want to edit the icon.`}
+        >
+          <span>{flatten ? "Flat" : "Raw"}</span>
           <input
             type="checkbox"
             checked={flatten}
             onChange={(e) => setFlatten(e.target.checked)}
           />
-          {flatten ? <Diamond size={16} weight="fill" /> : <Stack size={16} />}
-          <span>{flatten ? "Flat" : "Stroke"}</span>
+          {flatten ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={16}
+              height={16}
+              fill="black"
+              viewBox="0 0 16 16"
+            >
+              <rect x={3} y={3} width={10} height={10}></rect>
+            </svg>
+          ) : (
+            <BoundingBox size={16} weight="fill" />
+          )}
         </label>
       </div>
     </menu>

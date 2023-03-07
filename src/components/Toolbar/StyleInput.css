@@ -3,20 +3,33 @@ select {
   align-items: center;
   flex-grow: 1;
   border-radius: 2px;
-  padding: 4px;
+  padding: 4px 6px;
   border: 1px solid transparent;
   background: unset;
   color: inherit;
   font-size: 11px;
-  font-weight: bold;
+  font-family: Inter;
+
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='7' viewBox='0 0 8 7' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.646 5.354l-3-3 .708-.708L4 4.293l2.646-2.647.708.708-3 3L4 5.707l-.354-.353z' fill-rule='evenodd' fill-opacity='1' fill='%23000' stroke='none'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center right 6px;
 }
 
 select:hover {
   border: 1px solid var(--figma-color-border);
 }
 
-select:focus-within {
+select:focus-visible,
+select:focus-within,
+select:active {
   border: 1px solid var(--figma-color-border-selected);
+  outline: none;
+}
+
+select:focus-within {
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='7' viewBox='0 0 8 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4.354 1.99903L7.354 4.99903L6.646 5.70703L4 3.06003L1.354 5.70703L0.646004 4.99903L3.646 1.99903L4 1.64603L4.354 1.99903Z' fill='%23000' stroke='none'/%3E%3C/svg%3E");
+  background-position: top 8px right 6px;
 }
 
 option {

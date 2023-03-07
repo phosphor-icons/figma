@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
+  padding: 0 6px;
   border-radius: 2px;
   border: 1px solid transparent;
   box-sizing: border-box;
@@ -15,19 +15,20 @@
 
 .search-bar:focus-within {
   border: 1px solid var(--figma-color-border-selected);
+  outline: none;
 }
 
 .search-bar input {
   height: 100%;
-  width: 120px;
+  width: 100%;
   border: none;
-  margin-left: 4px;
   padding: 0;
   background-color: transparent !important;
   text-overflow: ellipsis;
   outline: none !important;
   color: inherit;
   font-size: 11px;
+  font-family: Inter;
 }
 
 .search-bar input:focus {

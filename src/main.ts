@@ -1,6 +1,6 @@
 import { CUSTOM_NODE_KEY, DEFAULT_SIZE } from "./constants";
 import { DropPayload, IconPayload, Message } from "./types";
-import { fetchFlatIcon, getInjectableNode, getOffsetVector } from "./utils";
+import { fetchRawIcon, getInjectableNode, getOffsetVector } from "./utils";
 
 let hasTriedDragAndDrop = false;
 
@@ -25,14 +25,14 @@ function main() {
 }
 
 async function insertIcon(payload: IconPayload) {
-  const svg = payload.flatten ? await fetchFlatIcon(payload) : payload.svg;
+  const svg = payload.flatten ? payload.svg : await fetchRawIcon(payload);
 
   const [currentSelection] = figma.currentPage.selection;
   const injectableNode = getInjectableNode(currentSelection);
   const frame = figma.createNodeFromSvg(svg);
 
-  if (payload.flatten) {
-    frame.resize(DEFAULT_SIZE, DEFAULT_SIZE);
+  if (!payload.flatten) {
+    frame.rescale(1 / 8);
   }
 
   const { x, y } = getOffsetVector(currentSelection);
@@ -42,9 +42,6 @@ async function insertIcon(payload: IconPayload) {
   frame.constrainProportions = true;
   frame.x = x;
   frame.y = y;
-  if (!payload.flatten) {
-    frame.children.forEach((child) => ungroup(child, frame));
-  }
 
   injectableNode.appendChild(frame);
 
@@ -62,7 +59,7 @@ async function insertIcon(payload: IconPayload) {
 
 async function dropIcon(payload: DropPayload) {
   const { pascal_name, dropPosition, windowSize, offset } = payload;
-  const svg = payload.flatten ? await fetchFlatIcon(payload) : payload.svg;
+  const svg = payload.flatten ? payload.svg : await fetchRawIcon(payload);
 
   const { bounds, zoom } = figma.viewport;
   const hasUI = Math.abs((bounds.width * zoom) / windowSize.width) < 0.99;
@@ -73,8 +70,8 @@ async function dropIcon(payload: DropPayload) {
   const yFromCanvas = hasUI ? dropPosition.clientY - 40 : dropPosition.clientY;
 
   const frame = figma.createNodeFromSvg(svg);
-  if (payload.flatten) {
-    frame.resize(DEFAULT_SIZE, DEFAULT_SIZE);
+  if (!payload.flatten) {
+    frame.rescale(1 / 8);
   }
 
   frame.setPluginData(CUSTOM_NODE_KEY, "true");
@@ -82,9 +79,6 @@ async function dropIcon(payload: DropPayload) {
   frame.constrainProportions = true;
   frame.x = bounds.x + xFromCanvas / zoom - offset.x;
   frame.y = bounds.y + yFromCanvas / zoom - offset.y;
-  if (!payload.flatten) {
-    frame.children.forEach((child) => ungroup(child, frame));
-  }
 
   figma.currentPage.selection = [frame];
   figma.notify(`✅ Added ${pascal_name}`, { timeout: 2000 });

@@ -1,4 +1,4 @@
-import * as Icons from "phosphor-react";
+import * as Icons from "@phosphor-icons/react";
 import { icons as iconData } from "@phosphor-icons/core";
 
 import { IconEntry } from ".";

@@ -1,6 +1,9 @@
+:root {
+  font-family: Inter;
+  font-size: 11px;
+}
+
 body {
-  font: 12px sans-serif;
-  text-align: center;
   margin: 0px;
   background-color: var(--figma-color-bg);
   color: var(--figma-color-text);
@@ -9,6 +12,13 @@ body {
 a {
   color: inherit;
   margin-left: 4px;
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+
+a:focus-visible {
+  border: 1px solid var(--figma-color-border-selected);
+  outline: none;
 }
 
 .app {
@@ -55,7 +65,7 @@ a {
   max-width: 313px;
   margin: 16px;
   padding: 0 16px 4px;
-  color: var(--figma-color-icon-warning);
+  color: var(--figma-color-bg-inverse);
 }
 
 .empty-state p {
@@ -74,7 +84,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 16px;
+  padding: 6px 8px;
   color: inherit;
   border-top: 1px solid var(--figma-color-border);
 }
@@ -86,7 +96,6 @@ a {
 
 .version {
   font-size: 10px;
-  font-weight: 500;
   padding: 4px;
   background-color: rgba(163, 159, 171, 0.2);
   border-radius: 4px;

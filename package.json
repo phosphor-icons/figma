@@ -1,6 +1,6 @@
 {
   "name": "phosphor-figma",
-  "version": "1.4.2",
+  "version": "2.0.0",
   "license": "MIT",
   "homepage": "https://phosphoricons.com",
   "author": {
@@ -44,9 +44,9 @@
     "webpack-cli": "^4"
   },
   "dependencies": {
-    "@phosphor-icons/core": "^1.4.6",
+    "@phosphor-icons/core": "^2.0.2",
+    "@phosphor-icons/react": "^2.0.4",
     "fuse.js": "^6.6.2",
-    "phosphor-react": "^1.4.1",
     "prop-types": "^15.8.1",
     "react": "^17",
     "react-dom": "^17",

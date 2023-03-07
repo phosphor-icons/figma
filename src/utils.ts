@@ -61,7 +61,7 @@ export function getOffsetVector(node: SceneNode): Vector {
   return figma.viewport.center;
 }
 
-export async function fetchFlatIcon(payload: IconPayload): Promise<string> {
+export async function fetchRawIcon(payload: IconPayload): Promise<string> {
   const fileName =
     payload.name + (payload.weight === "regular" ? "" : `-${payload.weight}`);
   const cacheKey = `ph-${MAJOR_VERSION}.${MINOR_VERSION}-${fileName}`;
@@ -70,7 +70,7 @@ export async function fetchFlatIcon(payload: IconPayload): Promise<string> {
 
   try {
     const res = await fetch(
-      `https://raw.githubusercontent.com/phosphor-icons/core/main/assets/${payload.weight}/${fileName}.svg`
+      `https://raw.githubusercontent.com/phosphor-icons/core/main/raw/${payload.weight}/${fileName}.svg`
     );
     const text = await res.text();
 
@@ -78,6 +78,6 @@ export async function fetchFlatIcon(payload: IconPayload): Promise<string> {
 
     return text;
   } catch (_) {
-    figma.notify("❌ Flattening failed! Try again later, or use unflattened.");
+    figma.notify("❌ Oops! Looks like you're offline.");
   }
 }
