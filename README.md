@@ -12,25 +12,22 @@ Browse, search, and copy into your project all from within Figma! To install, vi
 
 ## Raw Assets
 
-If you'd like to use the assets directly, you can download our [asset kit](https://www.phosphoricons.com/assets/phosphor-icons.zip).
+If you'd like to use the raw assets directly to modify them, click the toggle in the toolbar to change from `Flat` to `Raw`. You can also download our [asset kit](https://www.phosphoricons.com/assets/phosphor-icons.zip).
 
 - **SVGs** – Individual icon SVGs, in both minified and original formats retaining design-time detail.
 - **Icon Font** – Use the icons as you would text, in print and other applications where full-fledged graphical elements are undesirable.
 
-<!-- ### Source Files
-- **Sketch**
-- **Illustrator**
-- **Figma** -->
-
 ## Our Related Projects
 
-- [phosphor-home](https://github.com/phosphor-icons/phosphor-home) ▲ Phosphor homepage and general info
-- [phosphor-react](https://github.com/phosphor-icons/phosphor-react) ▲ Phosphor icon component library for React
-- [phosphor-vue](https://github.com/phosphor-icons/phosphor-vue) ▲ Phosphor icon component library for Vue
-- [phosphor-icons](https://github.com/phosphor-icons/phosphor-icons) ▲ Phosphor icons for Vanilla JS
-- [phosphor-flutter](https://github.com/phosphor-icons/phosphor-flutter) ▲ Phosphor IconData library for Flutter
-- [phosphor-webcomponents](https://github.com/phosphor-icons/phosphor-webcomponents) ▲ Phosphor icons as Web Components
-- [phosphor-sketch](https://github.com/phosphor-icons/phosphor-sketch) ▲ Phosphor icons Sketch plugin
+- [@phosphor-icons/homepage](https://github.com/phosphor-icons/homepage) ▲ Phosphor homepage and general info
+- [@phosphor-icons/core](https://github.com/phosphor-icons/core) ▲ Phosphor icon assets and catalog
+- [@phosphor-icons/react](https://github.com/phosphor-icons/react) ▲ Phosphor icon component library for React
+- [@phosphor-icons/web](https://github.com/phosphor-icons/web) ▲ Phosphor icons for Vanilla JS
+- [@phosphor-icons/vue](https://github.com/phosphor-icons/vue) ▲ Phosphor icon component library for Vue
+- [@phosphor-icons/elm](https://github.com/phosphor-icons/phosphor-elm) ▲ Phosphor icons for Elm
+- [@phosphor-icons/flutter](https://github.com/phosphor-icons/flutter) ▲ Phosphor IconData library for Flutter
+- [@phosphor-icons/webcomponents](https://github.com/phosphor-icons/webcomponents) ▲ Phosphor icons as Web Components
+- [@phosphor-icons/sketch](https://github.com/phosphor-icons/sketch) ▲ Phosphor icons Sketch plugin
 
 ## Community Projects
 
