@@ -14,7 +14,9 @@ const Footer: React.FC<{}> = () => {
       </div>
       <div
         className="version"
-        title={`Based on phosphor-react@${dependencies["@phosphor-icons/react"]}`}
+        title={`Based on @phosphor-icons/react v${dependencies[
+          "@phosphor-icons/react"
+        ].replace(/[\^~\=]/, "")}`}
       >
         v{version}
       </div>
