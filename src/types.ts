@@ -14,19 +14,54 @@ export interface DropPayload extends IconPayload {
   windowSize: { width: number; height: number };
 }
 
-export type Message =
+export interface GetAsyncPayload {
+  key: string;
+}
+
+export interface SetAsyncPayload<T = any> extends GetAsyncPayload {
+  value: T;
+}
+
+export enum MessageType {
+  INSERT = "icon_insert",
+  DROP = "icon_drop",
+  STORAGE_GET_REQUEST = "storage_get_req",
+  STORAGE_SET_REQUEST = "storage_set_req",
+  STORAGE_DELETE_REQUEST = "storage_delete_req",
+  STORAGE_GET_RESPONSE = "storage_get_res",
+  LOG = "log",
+}
+
+export type Message<T = any> =
   | {
-      type: "insert";
+      type: MessageType.INSERT;
       payload: IconPayload;
     }
   | {
-      type: "drop";
+      type: MessageType.DROP;
       payload: DropPayload;
     }
   | {
-      type: "log";
+      type: MessageType.STORAGE_GET_REQUEST;
+      payload: GetAsyncPayload;
+    }
+  | {
+      type: MessageType.STORAGE_SET_REQUEST;
+      payload: SetAsyncPayload<T>;
+    }
+  | {
+      type: MessageType.STORAGE_DELETE_REQUEST;
+      payload: GetAsyncPayload;
+    }
+  | {
+      type: MessageType.LOG;
       payload?: any;
     };
+
+export type Response<T> = {
+  type: MessageType.STORAGE_GET_RESPONSE;
+  payload: SetAsyncPayload<T>;
+};
 
 export type InjectableNode =
   | PageNode

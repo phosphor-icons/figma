@@ -12,7 +12,7 @@ const App: React.FC<{}> = () => {
     <RecoilRoot>
       <div className="app">
         <Toolbar />
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={null}>
           <IconGrid />
         </Suspense>
         <Footer />

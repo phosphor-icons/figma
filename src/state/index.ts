@@ -4,6 +4,7 @@ import Fuse from "fuse.js";
 
 import { IconEntry } from "../lib";
 import { icons } from "../lib/icons";
+import StorageProxy from "./StorageProxy";
 
 const fuse = new Fuse(icons, {
   keys: [
@@ -20,6 +21,7 @@ const fuse = new Fuse(icons, {
 export const iconWeightAtom = atom<IconStyle>({
   key: "iconWeightAtom",
   default: IconStyle.REGULAR,
+  effects: [StorageProxy.register],
 });
 
 export const searchQueryAtom = atom<string>({
@@ -30,6 +32,7 @@ export const searchQueryAtom = atom<string>({
 export const flattenAtom = atom<boolean>({
   key: "flattenAtom",
   default: true,
+  effects: [StorageProxy.register],
 });
 
 export const filteredQueryResultsSelector = selector<ReadonlyArray<IconEntry>>({

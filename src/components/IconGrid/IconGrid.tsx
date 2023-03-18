@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { IconContext, SmileyXEyes } from "@phosphor-icons/react";
 
 import { IconEntry } from "../../lib";
+import { MessageType } from "../../types";
 
 import {
   iconWeightAtom,
@@ -42,7 +43,7 @@ const IconGrid: React.FC<{}> = () => {
     parent.postMessage(
       {
         pluginMessage: {
-          type: "insert",
+          type: MessageType.INSERT,
           payload: { name, pascal_name, svg, weight, flatten },
         },
       },
@@ -81,7 +82,10 @@ const IconGrid: React.FC<{}> = () => {
         offset: dragStartRef.current,
       };
 
-      parent.postMessage({ pluginMessage: { type: "drop", payload } }, "*");
+      parent.postMessage(
+        { pluginMessage: { type: MessageType.DROP, payload } },
+        "*"
+      );
     },
     [weight, flatten]
   );

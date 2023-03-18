@@ -1,5 +1,12 @@
 import { CUSTOM_NODE_KEY, DEFAULT_SIZE } from "./constants";
-import { DropPayload, IconPayload, Message } from "./types";
+import {
+  DropPayload,
+  IconPayload,
+  GetAsyncPayload,
+  SetAsyncPayload,
+  Message,
+  MessageType,
+} from "./types";
 import { fetchRawIcon, getInjectableNode, getOffsetVector } from "./utils";
 
 let hasTriedDragAndDrop = false;
@@ -8,20 +15,47 @@ main();
 function main() {
   figma.ui.onmessage = ({ type, payload }: Message) => {
     switch (type) {
-      case "insert":
+      case MessageType.INSERT:
         insertIcon(payload);
         break;
-      case "drop":
+      case MessageType.DROP:
         hasTriedDragAndDrop = true;
         dropIcon(payload);
         break;
-      case "log":
+      case MessageType.STORAGE_GET_REQUEST:
+        getRequest(payload);
+        break;
+      case MessageType.STORAGE_SET_REQUEST:
+        setRequest(payload);
+        break;
+      case MessageType.STORAGE_DELETE_REQUEST:
+        deleteRequest(payload);
+        break;
+      case MessageType.LOG:
       default:
         console.log("Log: ", payload);
     }
   };
 
   figma.showUI(__html__, { width: 362, height: 490, themeColors: true });
+}
+
+async function getRequest(payload: GetAsyncPayload) {
+  const value = await figma.clientStorage.getAsync(payload.key);
+  if (typeof value !== "undefined") {
+    figma.ui.postMessage({
+      type: MessageType.STORAGE_GET_RESPONSE,
+      payload: { key: payload.key, value },
+    });
+  }
+}
+
+async function setRequest(payload: SetAsyncPayload) {
+  return figma.clientStorage.setAsync(payload.key, payload.value);
+}
+
+async function deleteRequest(payload: GetAsyncPayload) {
+  return figma.clientStorage.deleteAsync(payload.key);
 }
 
 async function insertIcon(payload: IconPayload) {
@@ -46,12 +80,12 @@ async function insertIcon(payload: IconPayload) {
   injectableNode.appendChild(frame);
 
   figma.currentPage.selection = [frame];
-  figma.notify(`✅ Added ${payload.pascal_name}`, { timeout: 2000 });
+  figma.notify(`Inserted ${payload.pascal_name}`, { timeout: 2000 });
 
   if (!hasTriedDragAndDrop) {
     setTimeout(() => {
       if (!hasTriedDragAndDrop)
-        figma.notify("💡 Try drag-and-drop too!", { timeout: 4000 });
+        figma.notify("Try drag-and-drop too!", { timeout: 4000 });
       hasTriedDragAndDrop = true;
     }, 4000);
   }
@@ -81,7 +115,7 @@ async function dropIcon(payload: DropPayload) {
   frame.y = bounds.y + yFromCanvas / zoom - offset.y;
 
   figma.currentPage.selection = [frame];
-  figma.notify(`✅ Added ${pascal_name}`, { timeout: 2000 });
+  figma.notify(`Inserted ${pascal_name}`, { timeout: 2000 });
 }
 
 function ungroup(node: SceneNode, parent: BaseNode & ChildrenMixin) {

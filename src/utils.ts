@@ -78,6 +78,6 @@ export async function fetchRawIcon(payload: IconPayload): Promise<string> {
 
     return text;
   } catch (_) {
-    figma.notify("❌ Oops! Looks like you're offline.");
+    figma.notify("Oops! Looks like you're offline.");
   }
 }
