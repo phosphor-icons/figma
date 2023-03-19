@@ -84,7 +84,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 8px;
+  padding: 6px 12px 6px 8px;
   color: inherit;
   border-top: 1px solid var(--figma-color-border);
 }
@@ -92,6 +92,7 @@ a:focus-visible {
 .footer > .plug {
   display: inline-flex;
   align-items: center;
+  user-select: none;
 }
 
 .version {
@@ -99,4 +100,13 @@ a:focus-visible {
   padding: 4px;
   background-color: rgba(163, 159, 171, 0.2);
   border-radius: 4px;
+  user-select: none;
+  cursor: help;
+}
+
+#resizer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: nw-resize;
 }

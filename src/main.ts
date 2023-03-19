@@ -1,7 +1,12 @@
-import { CUSTOM_NODE_KEY, DEFAULT_SIZE } from "./constants";
+import {
+  CUSTOM_NODE_KEY,
+  WINDOW_SIZE_KEY,
+  DEFAULT_WINDOW_SIZE,
+} from "./constants";
 import {
   DropPayload,
   IconPayload,
+  ResizePayload,
   GetAsyncPayload,
   SetAsyncPayload,
   Message,
@@ -12,7 +17,7 @@ import { fetchRawIcon, getInjectableNode, getOffsetVector } from "./utils";
 let hasTriedDragAndDrop = false;
 
 main();
-function main() {
+async function main() {
   figma.ui.onmessage = ({ type, payload }: Message) => {
     switch (type) {
       case MessageType.INSERT:
@@ -21,6 +26,9 @@ function main() {
       case MessageType.DROP:
         hasTriedDragAndDrop = true;
         dropIcon(payload);
+        break;
+      case MessageType.RESIZE:
+        resize(payload);
         break;
       case MessageType.STORAGE_GET_REQUEST:
         getRequest(payload);
@@ -37,7 +45,11 @@ function main() {
     }
   };
 
-  figma.showUI(__html__, { width: 362, height: 490, themeColors: true });
+  const { width, height }: ResizePayload =
+    (await figma.clientStorage.getAsync(WINDOW_SIZE_KEY)) ??
+    DEFAULT_WINDOW_SIZE;
+
+  figma.showUI(__html__, { width, height, themeColors: true });
 }
 
 async function getRequest(payload: GetAsyncPayload) {
@@ -116,6 +128,11 @@ async function dropIcon(payload: DropPayload) {
 
   figma.currentPage.selection = [frame];
   figma.notify(`Inserted ${pascal_name}`, { timeout: 2000 });
+}
+
+function resize(payload: ResizePayload) {
+  figma.ui.resize(payload.width, payload.height);
+  figma.clientStorage.setAsync(WINDOW_SIZE_KEY, payload);
 }
 
 function ungroup(node: SceneNode, parent: BaseNode & ChildrenMixin) {

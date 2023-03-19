@@ -14,6 +14,11 @@ export interface DropPayload extends IconPayload {
   windowSize: { width: number; height: number };
 }
 
+export interface ResizePayload {
+  width: number;
+  height: number;
+}
+
 export interface GetAsyncPayload {
   key: string;
 }
@@ -29,6 +34,7 @@ export enum MessageType {
   STORAGE_SET_REQUEST = "storage_set_req",
   STORAGE_DELETE_REQUEST = "storage_delete_req",
   STORAGE_GET_RESPONSE = "storage_get_res",
+  RESIZE = "resize",
   LOG = "log",
 }
 
@@ -53,6 +59,7 @@ export type Message<T = any> =
       type: MessageType.STORAGE_DELETE_REQUEST;
       payload: GetAsyncPayload;
     }
+  | { type: MessageType.RESIZE; payload: ResizePayload }
   | {
       type: MessageType.LOG;
       payload?: any;
