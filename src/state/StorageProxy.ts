@@ -37,7 +37,7 @@ export default class StorageProxy {
 
   static unregister(key: string) {
     window.removeEventListener("message", StorageProxy.listeners[key]);
-    delete StorageProxy.listeners.key;
+    delete StorageProxy.listeners[key];
   }
 
   static requestGet(payload: GetAsyncPayload) {
@@ -74,5 +74,11 @@ export default class StorageProxy {
       },
       "*"
     );
+  }
+
+  static dispose() {
+    for (const listener of Object.keys(StorageProxy.listeners)) {
+      StorageProxy.unregister(listener);
+    }
   }
 }
