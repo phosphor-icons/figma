@@ -2,6 +2,7 @@ import { IconStyle } from "@phosphor-icons/core";
 import { atom, selector } from "recoil";
 import Fuse from "fuse.js";
 
+import { PluginConfig } from "@common/types";
 import { IconEntry } from "../lib";
 import { icons } from "../lib/icons";
 import StorageProxy from "./StorageProxy";
@@ -18,9 +19,20 @@ const fuse = new Fuse(icons, {
   useExtendedSearch: true,
 });
 
+export const configAtom = atom<PluginConfig>({
+  key: "configAtom",
+  default: { editorType: "figma" },
+});
+
 export const iconWeightAtom = atom<IconStyle>({
   key: "iconWeightAtom",
   default: IconStyle.REGULAR,
+  effects: [StorageProxy.register],
+});
+
+export const iconColorAtom = atom<string>({
+  key: "iconColorAtom",
+  default: "currentColor",
   effects: [StorageProxy.register],
 });
 

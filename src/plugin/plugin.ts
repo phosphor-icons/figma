@@ -2,7 +2,7 @@ import {
   CUSTOM_NODE_KEY,
   WINDOW_SIZE_KEY,
   DEFAULT_WINDOW_SIZE,
-} from "./constants";
+} from "@common/constants";
 import {
   DropPayload,
   IconPayload,
@@ -11,13 +11,16 @@ import {
   SetAsyncPayload,
   Message,
   MessageType,
-} from "./types";
-import { fetchRawIcon, getInjectableNode, getOffsetVector } from "./utils";
+} from "@common/types";
+import {
+  fetchRawIcon,
+  getInjectableNode,
+  getOffsetVector,
+} from "@common/utils";
 
 let hasTriedDragAndDrop = false;
 
-main();
-async function main() {
+(async function main() {
   figma.ui.onmessage = ({ type, payload }: Message) => {
     switch (type) {
       case MessageType.INSERT:
@@ -40,6 +43,12 @@ async function main() {
         deleteRequest(payload);
         break;
       case MessageType.LOG:
+      case MessageType.CONFIG:
+        figma.ui.postMessage({
+          type: MessageType.CONFIG,
+          payload: { editorType: figma.editorType, theme: "dark" },
+        });
+        break;
       default:
         console.log("Log: ", payload);
     }
@@ -50,7 +59,7 @@ async function main() {
     DEFAULT_WINDOW_SIZE;
 
   figma.showUI(__html__, { width, height, themeColors: true });
-}
+})();
 
 async function getRequest(payload: GetAsyncPayload) {
   const value = await figma.clientStorage.getAsync(payload.key);
@@ -72,6 +81,11 @@ async function deleteRequest(payload: GetAsyncPayload) {
 
 async function insertIcon(payload: IconPayload) {
   const svg = payload.flatten ? payload.svg : await fetchRawIcon(payload);
+
+  if (!svg) {
+    figma.notify("Failed to fetch icon 😭");
+    return;
+  }
 
   const [currentSelection] = figma.currentPage.selection;
   const injectableNode = getInjectableNode(currentSelection);
@@ -106,6 +120,11 @@ async function insertIcon(payload: IconPayload) {
 async function dropIcon(payload: DropPayload) {
   const { pascal_name, dropPosition, windowSize, offset } = payload;
   const svg = payload.flatten ? payload.svg : await fetchRawIcon(payload);
+
+  if (!svg) {
+    figma.notify("Failed to fetch icon 😭");
+    return;
+  }
 
   const { bounds, zoom } = figma.viewport;
   const hasUI = Math.abs((bounds.width * zoom) / windowSize.width) < 0.99;

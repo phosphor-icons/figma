@@ -1,6 +1,6 @@
 {
   "name": "phosphor-figma",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "license": "MIT",
   "homepage": "https://phosphoricons.com",
   "author": {
@@ -22,35 +22,47 @@
   ],
   "repository": "github:phosphor-icons/phosphor-figma",
   "private": false,
-  "main": "dist/code.js",
+  "type": "module",
   "scripts": {
-    "ts:build": "tsc -p tsconfig.json",
-    "ts:start": "tsc -w",
-    "start": "npx webpack --mode=development --watch",
-    "build": "npx webpack --mode=production"
+    "start": "run-s dev",
+    "dev": "run-s watch",
+    "dev:ui-only": "vite -c ./vite.config.ui.ts",
+    "watch": "run-p watch:*",
+    "watch:ui": "npm run build:ui -- --watch --mode=development",
+    "watch:plugin": "npm run build:plugin -- --watch --mode=development",
+    "clean": "rimraf dist/*",
+    "types": "run-s types:*",
+    "types:src": "tsc",
+    "types:node": "tsc -P tsconfig.node.json",
+    "build": "run-s build:*",
+    "prebuild": "run-s types clean",
+    "build:ui": "vite build -c ./vite.config.ui.ts",
+    "build:plugin": "vite build -c ./vite.config.plugin.ts"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.57.1",
-    "@types/react": "^17",
-    "@types/react-dom": "^17",
-    "css-loader": "^5",
-    "html-webpack-inline-source-plugin": "^1.0.0-beta.2",
-    "html-webpack-plugin": "^4",
-    "style-loader": "^2",
-    "ts-loader": "^8",
-    "typescript": "^4.9.4",
-    "url-loader": "^4.1.1",
-    "webpack": "^4",
-    "webpack-cli": "^4"
+    "@figma/plugin-typings": "^1.83.0",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.2.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.11",
+    "vite-plugin-generate-file": "^0.1.1",
+    "vite-plugin-react-rich-svg": "^1.0.0",
+    "vite-plugin-singlefile": "^0.13.5"
   },
   "dependencies": {
-    "@phosphor-icons/core": "^2.0.2",
-    "@phosphor-icons/react": "^2.0.5",
+    "@phosphor-icons/core": "^2.0.4",
+    "@phosphor-icons/react": "^2.0.15",
+    "@types/tinycolor2": "^1.4.6",
     "fuse.js": "^6.6.2",
     "prop-types": "^15.8.1",
-    "react": "^17",
-    "react-dom": "^17",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-use": "^17.4.0",
-    "recoil": "^0.7.6"
+    "recoil": "^0.7.6",
+    "tinycolor2": "^1.6.0"
   }
 }

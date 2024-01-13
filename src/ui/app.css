@@ -104,6 +104,10 @@ a:focus-visible {
   cursor: help;
 }
 
+.outline {
+  box-shadow: var(--figma-color-border) 0px 0px 0px 1px inset;
+}
+
 #resizer {
   position: absolute;
   bottom: 0;

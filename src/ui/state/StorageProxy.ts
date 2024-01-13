@@ -5,7 +5,7 @@ import {
   SetAsyncPayload,
   Response,
   MessageType,
-} from "../types";
+} from "../../common/types";
 
 type StorageListener = (event: MessageEvent) => void;
 

@@ -27,6 +27,8 @@ export interface SetAsyncPayload<T = any> extends GetAsyncPayload {
   value: T;
 }
 
+export type ColorTheme = "dark" | "light";
+
 export enum MessageType {
   INSERT = "icon_insert",
   DROP = "icon_drop",
@@ -36,7 +38,13 @@ export enum MessageType {
   STORAGE_GET_RESPONSE = "storage_get_res",
   RESIZE = "resize",
   LOG = "log",
+  CONFIG = "config",
 }
+
+export type PluginConfig = {
+  editorType: PluginAPI["editorType"];
+  theme?: ColorTheme;
+};
 
 export type Message<T = any> =
   | {
@@ -63,6 +71,10 @@ export type Message<T = any> =
   | {
       type: MessageType.LOG;
       payload?: any;
+    }
+  | {
+      type: MessageType.CONFIG;
+      payload: PluginConfig;
     };
 
 export type Response<T> = {

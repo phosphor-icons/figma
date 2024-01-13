@@ -2,8 +2,8 @@ import React from "react";
 import { PhosphorLogo, Notches } from "@phosphor-icons/react";
 
 import { version, dependencies } from "../../../package.json";
-import { DEFAULT_WINDOW_SIZE, MINIMUM_WINDOW_SIZE } from "../../constants";
-import { MessageType, ResizePayload } from "../../types";
+import { DEFAULT_WINDOW_SIZE, MINIMUM_WINDOW_SIZE } from "../../common/constants";
+import { MessageType, ResizePayload } from "../../common/types";
 
 const Footer: React.FC<{}> = () => {
   const [dragging, setDragging] = React.useState<boolean>(false);

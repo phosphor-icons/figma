@@ -3,15 +3,17 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { useRecoilValue } from "recoil";
 import { IconContext, SmileyXEyes } from "@phosphor-icons/react";
 
-import { IconEntry } from "../../lib";
-import { MessageType } from "../../types";
+import { MessageType } from "@common/types";
+import { IconEntry } from "../lib";
 
 import {
   iconWeightAtom,
   filteredQueryResultsSelector,
   searchQueryAtom,
   flattenAtom,
-} from "../../state";
+  iconColorAtom,
+  configAtom,
+} from "../state";
 
 interface Position {
   x: number;
@@ -23,12 +25,14 @@ const IconGrid: React.FC<{}> = () => {
   const icons = useRecoilValue(filteredQueryResultsSelector);
   const query = useRecoilValue(searchQueryAtom);
   const flatten = useRecoilValue(flattenAtom);
+  const color = useRecoilValue(iconColorAtom);
+  const { editorType } = useRecoilValue(configAtom);
   const dragStartRef = useRef<Position>();
 
   useEffect(() => {
     window.addEventListener("dragover", (e) => {
       e.preventDefault();
-      e.dataTransfer.dropEffect = "copy";
+      e.dataTransfer && (e.dataTransfer.dropEffect = "copy");
     });
   }, []);
 
@@ -38,13 +42,23 @@ const IconGrid: React.FC<{}> = () => {
   ) => {
     const { name, pascal_name, Icon } = entry;
     const svg = renderToStaticMarkup(
-      <Icon size={32} color="black" weight={weight} />
+      <Icon
+        size={32}
+        color={editorType === "figjam" ? color : "black"}
+        weight={weight}
+      />
     );
     parent.postMessage(
       {
         pluginMessage: {
           type: MessageType.INSERT,
-          payload: { name, pascal_name, svg, weight, flatten },
+          payload: {
+            name,
+            pascal_name,
+            svg,
+            weight,
+            flatten: flatten || editorType === "figjam",
+          },
         },
       },
       "*"
@@ -61,11 +75,15 @@ const IconGrid: React.FC<{}> = () => {
   const handleDragEnd = useCallback(
     (e: React.DragEvent<HTMLSpanElement>, entry: IconEntry) => {
       const { clientX, clientY, view } = e.nativeEvent;
-      if (view.length === 0) return;
+      if (view?.length === 0) return;
 
       const { name, pascal_name, Icon } = entry;
       const svg = renderToStaticMarkup(
-        <Icon size={32} color="black" weight={weight} />
+        <Icon
+          size={32}
+          color={editorType === "figjam" ? color : "black"}
+          weight={weight}
+        />
       );
 
       const payload = {
@@ -73,7 +91,7 @@ const IconGrid: React.FC<{}> = () => {
         pascal_name,
         svg,
         weight,
-        flatten,
+        flatten: flatten || editorType === "figjam",
         dropPosition: { clientX, clientY },
         windowSize: {
           width: window.outerWidth,
@@ -87,7 +105,7 @@ const IconGrid: React.FC<{}> = () => {
         "*"
       );
     },
-    [weight, flatten]
+    [weight, flatten, color, editorType]
   );
 
   if (!icons.length)

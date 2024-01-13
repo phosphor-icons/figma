@@ -1,6 +1,6 @@
-import { version } from "../package.json";
-import { CUSTOM_NODE_KEY } from "./constants";
-import { IconPayload, InjectableNode } from "./types";
+import { CUSTOM_NODE_KEY } from "@common/constants";
+import { IconPayload, InjectableNode } from "@common/types";
+import { version } from "../../package.json";
 
 const [MAJOR_VERSION, MINOR_VERSION] = version.split(".");
 
@@ -61,7 +61,9 @@ export function getOffsetVector(node: SceneNode): Vector {
   return figma.viewport.center;
 }
 
-export async function fetchRawIcon(payload: IconPayload): Promise<string> {
+export async function fetchRawIcon(
+  payload: IconPayload
+): Promise<string | undefined> {
   const fileName =
     payload.name + (payload.weight === "regular" ? "" : `-${payload.weight}`);
   const cacheKey = `ph-${MAJOR_VERSION}.${MINOR_VERSION}-${fileName}`;

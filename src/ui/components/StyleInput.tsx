@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { IconStyle } from "@phosphor-icons/core";
 import { PencilLine } from "@phosphor-icons/react";
 
-import { iconWeightAtom } from "../../state";
+import { iconWeightAtom } from "../state";
 
 import "./StyleInput.css";
 

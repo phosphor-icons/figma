@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { useDebounce } from "react-use";
 import {  X, HourglassHigh } from "@phosphor-icons/react";
 
-import { searchQueryAtom } from "../../state";
+import { searchQueryAtom } from "../state";
 import "./SearchInput.css";
 
 type SearchInputProps = {};
