@@ -8,6 +8,7 @@ export default {
   capabilities: [],
   enableProposedApi: false,
   editorType: ["figma", "figjam"],
+  documentAccess: "dynamic-page",
   networkAccess: {
     allowedDomains: [
       "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/",
