@@ -11,7 +11,6 @@ body {
 
 a {
   color: inherit;
-  margin-left: 4px;
   text-decoration: none;
   padding-bottom: 2px;
 }
@@ -84,14 +83,16 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: 6px 12px 6px 8px;
   color: inherit;
   border-top: 1px solid var(--figma-color-border);
 }
 
-.footer > .plug {
+.plug {
   display: inline-flex;
   align-items: center;
+  gap: 4px;
   user-select: none;
 }
 
@@ -106,6 +107,10 @@ a:focus-visible {
 
 .outline {
   box-shadow: var(--figma-color-border) 0px 0px 0px 1px inset;
+}
+
+.expand {
+  flex: 1;
 }
 
 #resizer {

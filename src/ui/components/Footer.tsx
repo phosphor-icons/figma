@@ -66,20 +66,24 @@ const Footer: React.FC<{}> = () => {
           phosphoricons.com
         </a>
       </div>
+
+      <span className="expand" />
+
       <div className="plug">
         <HandHeart weight="regular" size={16} />
         <a href="https://www.buymeacoffee.com/phosphoricons" target="_blank">
           Donate
         </a>
       </div>
-      <div
+
+      <span
         className="version"
         title={`Based on @phosphor-icons/react v${dependencies[
           "@phosphor-icons/react"
-        ].replace(/[\^~\=]/, "")}`}
+        ].replace(/[\^~<>\=]/g, "")}`}
       >
         v{version}
-      </div>
+      </span>
       <Notches id="resizer" {...resizeProps}>
         <title>Double-click to reset plugin window size</title>
       </Notches>
