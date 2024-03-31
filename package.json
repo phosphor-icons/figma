@@ -1,6 +1,6 @@
 {
   "name": "phosphor-figma",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "license": "MIT",
   "homepage": "https://phosphoricons.com",
   "author": {
@@ -40,7 +40,7 @@
     "build:plugin": "vite build -c ./vite.config.plugin.ts"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.83.0",
+    "@figma/plugin-typings": "^1.89.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
@@ -54,8 +54,8 @@
     "vite-plugin-singlefile": "^0.13.5"
   },
   "dependencies": {
-    "@phosphor-icons/core": "^2.0.4",
-    "@phosphor-icons/react": "^2.0.15",
+    "@phosphor-icons/core": "^2.1.1",
+    "@phosphor-icons/react": "^2.1.4",
     "@types/tinycolor2": "^1.4.6",
     "fuse.js": "^6.6.2",
     "prop-types": "^15.8.1",
