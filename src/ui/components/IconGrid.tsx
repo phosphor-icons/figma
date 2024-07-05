@@ -43,7 +43,7 @@ const IconGrid: React.FC<{}> = () => {
     const { name, pascal_name, Icon } = entry;
     const svg = renderToStaticMarkup(
       <Icon
-        size={32}
+        size={24}
         color={editorType === "figjam" ? color : "black"}
         weight={weight}
       />
@@ -80,7 +80,7 @@ const IconGrid: React.FC<{}> = () => {
       const { name, pascal_name, Icon } = entry;
       const svg = renderToStaticMarkup(
         <Icon
-          size={32}
+          size={24}
           color={editorType === "figjam" ? color : "black"}
           weight={weight}
         />
@@ -120,7 +120,7 @@ const IconGrid: React.FC<{}> = () => {
 
   return (
     <div className="grid">
-      <IconContext.Provider value={{ size: 32, weight }}>
+      <IconContext.Provider value={{ size: 24, weight }}>
         {icons.map((entry) => {
           const { Icon } = entry;
 

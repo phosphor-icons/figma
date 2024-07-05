@@ -36,7 +36,7 @@ a:focus-visible {
 .icon-wrapper {
   display: inline-block;
   cursor: grab;
-  padding: 8px;
+  padding: 6px;
   border-radius: 4px;
   background-color: transparent;
   transition: background-color 0.1s;
