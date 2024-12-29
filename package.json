@@ -23,6 +23,7 @@
   "repository": "github:phosphor-icons/phosphor-figma",
   "private": false,
   "type": "module",
+  "packageManager": "pnpm@9",
   "scripts": {
     "start": "run-s dev",
     "dev": "run-s watch",
