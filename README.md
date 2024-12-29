@@ -17,6 +17,7 @@ If you'd like to use the raw assets directly to modify them, click the toggle in
 - **SVGs** – Individual icon SVGs, in both minified and original formats retaining design-time detail.
 - **Icon Font** – Use the icons as you would text, in print and other applications where full-fledged graphical elements are undesirable.
 
+<!-- BEGIN_LINKS -->
 ## Our Related Projects
 
 - [@phosphor-icons/homepage](https://github.com/phosphor-icons/homepage) ▲ Phosphor homepage and general info
@@ -52,3 +53,4 @@ If you've made a port of Phosphor and you want to see it here, just open a PR [h
 ## License
 
 MIT © [Phosphor Icons](https://github.com/phosphor-icons)
+<!-- END_LINKS -->
