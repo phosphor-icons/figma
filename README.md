@@ -2,14 +2,13 @@
 
 <!-- BEGIN_LOGO -->
 <img src="https://github.com/phosphor-icons/figma/blob/master/meta/phosphor-mark-tight-black.png?raw=true" width="128" align="right" />
-Phosphor is a flexible icon family for interfaces, diagrams, presentations — whatever, really. Explore all our icons at [phosphoricons.com](https://phosphoricons.com).
 <!-- END_LOGO -->
 
-## Figma Plugin
+Phosphor is a flexible icon family for interfaces, diagrams, presentations — whatever, really. This repository contains the source code for our Figma plugin, which allows you to browse, search and copy icons into your project. To install, visit our [community page](https://www.figma.com/community/plugin/898620911119764089/Phosphor-Icons). Explore all our icons at [phosphoricons.com](https://phosphoricons.com).
 
-Browse, search, and copy into your project all from within Figma! To install, visit our [community page](https://www.figma.com/community/plugin/898620911119764089/Phosphor-Icons).
+## Screenshots
 
-<img src="/meta/plugin-demo.gif" />
+<img src="/.github/plugin-banner.png" />
 
 ## Raw Assets
 
