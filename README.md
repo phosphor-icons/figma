@@ -1,8 +1,9 @@
+# @phosphor-icons/figma
+
+<!-- BEGIN_LOGO -->
 <img src="https://github.com/phosphor-icons/figma/blob/master/meta/phosphor-mark-tight-black.png?raw=true" width="128" align="right" />
-
-# Phosphor Icons
-
 Phosphor is a flexible icon family for interfaces, diagrams, presentations — whatever, really. Explore all our icons at [phosphoricons.com](https://phosphoricons.com).
+<!-- END_LOGO -->
 
 ## Figma Plugin
 
