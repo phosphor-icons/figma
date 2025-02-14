@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { useDebounce } from "react-use";
-import {  X, HourglassHigh } from "@phosphor-icons/react";
+import { X, HourglassHigh } from "@phosphor-icons/react";
 
 import { searchQueryAtom } from "../state";
 import "./SearchInput.css";
@@ -34,7 +34,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
         value={value}
         placeholder="Search icons..."
         onChange={({ currentTarget }) => setValue(currentTarget.value)}
-        onKeyPress={({ currentTarget, key }) =>
+        onKeyUp={({ currentTarget, key }) =>
           key === "Enter" && currentTarget.blur()
         }
       />

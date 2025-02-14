@@ -41,29 +41,27 @@
     "build:plugin": "vite build -c ./vite.config.plugin.ts"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.97.0",
-    "@types/node": "^18.19.39",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^5.0.7",
-    "typescript": "^5.5.3",
-    "vite": "^5.3.6",
-    "vite-plugin-generate-file": "^0.1.1",
-    "vite-plugin-react-rich-svg": "^1.1.1",
-    "vite-plugin-singlefile": "^2.0.2"
+    "@figma/plugin-typings": "^1.107",
+    "@types/node": "^22",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/tinycolor2": "^1.4.6",
+    "@vitejs/plugin-react": "^4.3.4",
+    "npm-run-all": "^4",
+    "rimraf": "^5",
+    "typescript": "^5",
+    "vite": "^6",
+    "vite-plugin-generate-file": "^0.2",
+    "vite-plugin-singlefile": "^2.1"
   },
   "dependencies": {
     "@phosphor-icons/core": "^2.1.1",
     "@phosphor-icons/react": "^2.1.7",
-    "@types/tinycolor2": "^1.4.6",
-    "fuse.js": "^6.6.2",
-    "prop-types": "^15.8.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-use": "^17.5.0",
-    "recoil": "^0.7.7",
+    "fuse.js": "^7.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-use": "^17.6",
+    "recoil": "^0.7",
     "tinycolor2": "^1.6.0"
   }
 }
