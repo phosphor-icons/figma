@@ -1,5 +1,5 @@
 import React from "react";
-import { PhosphorLogo, HandHeart, Notches } from "@phosphor-icons/react";
+import { PhosphorLogoIcon, HandHeartIcon, NotchesIcon } from "@phosphor-icons/react";
 
 import { version, dependencies } from "../../../package.json";
 import {
@@ -61,7 +61,7 @@ const Footer: React.FC<{}> = () => {
   return (
     <footer className="footer">
       <div className="plug">
-        <PhosphorLogo weight="fill" size={16} />
+        <PhosphorLogoIcon weight="fill" size={16} />
         <a href="https://phosphoricons.com" target="_blank" rel="noopener">
           phosphoricons.com
         </a>
@@ -70,7 +70,7 @@ const Footer: React.FC<{}> = () => {
       <span className="expand" />
 
       <div className="plug">
-        <HandHeart weight="regular" size={16} />
+        <HandHeartIcon weight="regular" size={16} />
         <a href="https://www.buymeacoffee.com/phosphoricons" target="_blank">
           Donate
         </a>
@@ -84,9 +84,9 @@ const Footer: React.FC<{}> = () => {
       >
         v{version}
       </span>
-      <Notches id="resizer" {...resizeProps}>
+      <NotchesIcon id="resizer" {...resizeProps}>
         <title>Double-click to reset plugin window size</title>
-      </Notches>
+      </NotchesIcon>
     </footer>
   );
 };

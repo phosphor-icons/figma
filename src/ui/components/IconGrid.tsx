@@ -1,19 +1,10 @@
 import React, { useRef, useCallback, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { useRecoilValue } from "recoil";
-import { IconContext, SmileyXEyes } from "@phosphor-icons/react";
+import { IconContext, SmileyXEyesIcon } from "@phosphor-icons/react";
 
 import { MessageType } from "@common/types";
 import { IconEntry } from "../lib";
-
-import {
-  iconWeightAtom,
-  filteredQueryResultsSelector,
-  searchQueryAtom,
-  flattenAtom,
-  iconColorAtom,
-  configAtom,
-} from "../state";
+import { useStore } from "../state";
 
 interface Position {
   x: number;
@@ -21,13 +12,13 @@ interface Position {
 }
 
 const IconGrid: React.FC<{}> = () => {
-  const weight = useRecoilValue(iconWeightAtom);
-  const icons = useRecoilValue(filteredQueryResultsSelector);
-  const query = useRecoilValue(searchQueryAtom);
-  const flatten = useRecoilValue(flattenAtom);
-  const color = useRecoilValue(iconColorAtom);
-  const { editorType } = useRecoilValue(configAtom);
-  const dragStartRef = useRef<Position>();
+  const weight = useStore((s) => s.iconWeight);
+  const icons = useStore((s) => s.filteredIcons);
+  const query = useStore((s) => s.searchQuery);
+  const flatten = useStore((s) => s.flatten);
+  const color = useStore((s) => s.iconColor);
+  const editorType = useStore((s) => s.config.editorType);
+  const dragStartRef = useRef<Position>(null);
 
   useEffect(() => {
     window.addEventListener("dragover", (e) => {
@@ -111,7 +102,7 @@ const IconGrid: React.FC<{}> = () => {
   if (!icons.length)
     return (
       <div className="empty-state">
-        <SmileyXEyes size={128} weight="duotone" />
+        <SmileyXEyesIcon size={128} weight="duotone" />
         <p>
           No results for "<code>{query}"</code>
         </p>

@@ -7,7 +7,7 @@ export default {
   ui: "index.html",
   capabilities: [],
   enableProposedApi: false,
-  editorType: ["figma", "figjam", "slides"],
+  editorType: ["figma", "figjam", "slides", "buzz"],
   documentAccess: "dynamic-page",
   networkAccess: {
     allowedDomains: [

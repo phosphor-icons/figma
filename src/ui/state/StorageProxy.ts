@@ -1,4 +1,4 @@
-import { AtomEffect } from "recoil";
+import { StoreApi } from "zustand";
 
 import {
   GetAsyncPayload,
@@ -9,35 +9,32 @@ import {
 
 type StorageListener = (event: MessageEvent) => void;
 
-export default class StorageProxy {
-  static listeners: Record<string, StorageListener> = {};
+const STORAGE_KEYS: Record<string, keyof any> = {
+  iconWeightAtom: "iconWeight",
+  iconColorAtom: "iconColor",
+  flattenAtom: "flatten",
+};
 
-  static register<T>({ node, setSelf, onSet }: Parameters<AtomEffect<T>>[0]) {
-    const listener: StorageListener = (event) => {
-      const { type, payload } = event.data.pluginMessage as Response<T>;
-      if (type !== MessageType.STORAGE_GET_RESPONSE || payload.key !== node.key)
-        return;
-      setSelf(payload.value);
+export default class StorageProxy {
+  static listener: StorageListener | null = null;
+
+  static hydrate(store: StoreApi<any>) {
+    StorageProxy.listener = (event) => {
+      const msg = event.data?.pluginMessage;
+      if (!msg || msg.type !== MessageType.STORAGE_GET_RESPONSE) return;
+
+      const stateKey = STORAGE_KEYS[msg.payload.key];
+      if (stateKey && msg.payload.value !== undefined) {
+        store.setState({ [stateKey]: msg.payload.value });
+      }
     };
 
-    window.addEventListener("message", listener);
+    window.addEventListener("message", StorageProxy.listener);
 
-    onSet((value, _, isReset) => {
-      if (isReset) {
-        StorageProxy.requestReset({ key: node.key });
-      } else {
-        StorageProxy.requestSet({ key: node.key, value });
-      }
-    });
-
-    StorageProxy.listeners[node.key] = listener;
-
-    StorageProxy.requestGet({ key: node.key });
-  }
-
-  static unregister(key: string) {
-    window.removeEventListener("message", StorageProxy.listeners[key]);
-    delete StorageProxy.listeners[key];
+    // Request stored values for all persisted keys
+    for (const key of Object.keys(STORAGE_KEYS)) {
+      StorageProxy.requestGet({ key });
+    }
   }
 
   static requestGet(payload: GetAsyncPayload) {
@@ -77,8 +74,9 @@ export default class StorageProxy {
   }
 
   static dispose() {
-    for (const listener of Object.keys(StorageProxy.listeners)) {
-      StorageProxy.unregister(listener);
+    if (StorageProxy.listener) {
+      window.removeEventListener("message", StorageProxy.listener);
+      StorageProxy.listener = null;
     }
   }
 }

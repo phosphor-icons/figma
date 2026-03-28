@@ -1,8 +1,7 @@
 import React from "react";
-import { useRecoilState } from "recoil";
 import { IconStyle } from "@phosphor-icons/core";
 
-import { iconWeightAtom } from "../state";
+import { useStore } from "../state";
 
 import "./StyleInput.css";
 
@@ -38,7 +37,8 @@ const options: WeightOption[] = [
 type StyleInputProps = {};
 
 const StyleInput: React.FC<StyleInputProps> = () => {
-  const [style, setStyle] = useRecoilState(iconWeightAtom);
+  const style = useStore((s) => s.iconWeight);
+  const setStyle = useStore((s) => s.setIconWeight);
 
   return (
     <select

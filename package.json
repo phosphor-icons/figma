@@ -1,6 +1,6 @@
 {
   "name": "phosphor-figma",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "license": "MIT",
   "homepage": "https://phosphoricons.com",
   "author": {
@@ -23,7 +23,6 @@
   "repository": "github:phosphor-icons/phosphor-figma",
   "private": false,
   "type": "module",
-  "packageManager": "pnpm@9",
   "scripts": {
     "start": "run-s dev",
     "dev": "run-s watch",
@@ -41,27 +40,27 @@
     "build:plugin": "vite build -c ./vite.config.plugin.ts"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.107",
-    "@types/node": "^22",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@figma/plugin-typings": "^1.124.0",
+    "@types/node": "^22.19.15",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@types/tinycolor2": "^1.4.6",
-    "@vitejs/plugin-react": "^4.3.4",
-    "npm-run-all": "^4",
-    "rimraf": "^5",
-    "typescript": "^5",
-    "vite": "^6",
-    "vite-plugin-generate-file": "^0.2",
-    "vite-plugin-singlefile": "^2.1"
+    "@vitejs/plugin-react": "^6.0.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^6.1.3",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.3",
+    "vite-plugin-generate-file": "^0.2.0",
+    "vite-plugin-singlefile": "^2.3.2"
   },
   "dependencies": {
     "@phosphor-icons/core": "^2.1.1",
-    "@phosphor-icons/react": "^2.1.7",
-    "fuse.js": "^7.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-use": "^17.6",
-    "recoil": "^0.7",
-    "tinycolor2": "^1.6.0"
+    "@phosphor-icons/react": "^2.1.10",
+    "fuse.js": "^7.1.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-use": "^17.6.0",
+    "tinycolor2": "^1.6.0",
+    "zustand": "^5.0.12"
   }
 }

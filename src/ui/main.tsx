@@ -1,6 +1,5 @@
 import * as React from "react";
 import ReactDOM from "react-dom/client";
-import { RecoilRoot } from "recoil";
 
 (async function main() {
   const App = (await import("./app")).default;
@@ -10,9 +9,7 @@ import { RecoilRoot } from "recoil";
 
   root.render(
     <React.StrictMode>
-      <RecoilRoot>
-        <App />
-      </RecoilRoot>
+      <App />
     </React.StrictMode>
   );
 })();

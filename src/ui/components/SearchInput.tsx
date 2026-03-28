@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
 import { useDebounce } from "react-use";
-import { X, HourglassHigh } from "@phosphor-icons/react";
+import { XIcon, HourglassHighIcon } from "@phosphor-icons/react";
 
-import { searchQueryAtom } from "../state";
+import { useStore } from "../state";
 import "./SearchInput.css";
 
 type SearchInputProps = {};
 
 const SearchInput: React.FC<SearchInputProps> = () => {
   const [value, setValue] = useState<string>("");
-  const [query, setQuery] = useRecoilState(searchQueryAtom);
-  void query;
+  const setQuery = useStore((s) => s.setSearchQuery);
 
   const [isReady] = useDebounce(() => setQuery(value), 250, [value]);
 
@@ -40,9 +38,9 @@ const SearchInput: React.FC<SearchInputProps> = () => {
       />
       {value ? (
         isReady() ? (
-          <X className="clear-icon" size={18} onClick={handleCancelSearch} />
+          <XIcon className="clear-icon" size={18} onClick={handleCancelSearch} />
         ) : (
-          <HourglassHigh className="wait-icon" weight="fill" size={18} />
+          <HourglassHighIcon className="wait-icon" weight="fill" size={18} />
         )
       ) : null}
     </div>
