@@ -99,7 +99,7 @@ async function insertIcon(payload: IconPayload) {
 
   frame.setPluginData(CUSTOM_NODE_KEY, "true");
   frame.name = payload.pascal_name;
-  frame.constrainProportions = true;
+  frame.lockAspectRatio();
   frame.x = x;
   frame.y = y;
 
@@ -141,7 +141,7 @@ async function dropIcon(payload: DropPayload) {
 
   frame.setPluginData(CUSTOM_NODE_KEY, "true");
   frame.name = pascal_name;
-  frame.constrainProportions = true;
+  frame.lockAspectRatio;
   frame.x = bounds.x + xFromCanvas / zoom - offset.x;
   frame.y = bounds.y + yFromCanvas / zoom - offset.y;
 

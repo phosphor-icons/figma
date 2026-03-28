@@ -1,15 +1,14 @@
-import { Suspense, useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useEffect } from "react";
 
 import { Message, MessageType } from "@common/types";
 import Toolbar from "./components/Toolbar";
 import IconGrid from "./components/IconGrid";
 import Footer from "./components/Footer";
-import { configAtom } from "./state";
+import { useStore } from "./state";
 import "./app.css";
 
 const App = () => {
-  const setConfig = useSetRecoilState(configAtom);
+  const setConfig = useStore((s) => s.setConfig);
 
   useEffect(() => {
     onmessage = (event: MessageEvent<{ pluginMessage: Message }>) => {
@@ -24,9 +23,7 @@ const App = () => {
   return (
     <div className="app">
       <Toolbar />
-      <Suspense fallback={null}>
-        <IconGrid />
-      </Suspense>
+      <IconGrid />
       <Footer />
     </div>
   );

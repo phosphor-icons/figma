@@ -1,9 +1,8 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { BoundingBox } from "@phosphor-icons/react";
+import { BoundingBoxIcon } from "@phosphor-icons/react";
 import tinycolor from "tinycolor2";
 
-import { configAtom, flattenAtom, iconColorAtom } from "../state";
+import { useStore } from "../state";
 import StyleInput from "./StyleInput";
 import SearchInput from "./SearchInput";
 import "./Toolbar.css";
@@ -11,9 +10,11 @@ import "./Toolbar.css";
 type ToolbarProps = {};
 
 const Toolbar: React.FC<ToolbarProps> = () => {
-  const [flatten, setFlatten] = useRecoilState(flattenAtom);
-  const [color, setColor] = useRecoilState(iconColorAtom);
-  const { editorType } = useRecoilValue(configAtom);
+  const flatten = useStore((s) => s.flatten);
+  const setFlatten = useStore((s) => s.setFlatten);
+  const color = useStore((s) => s.iconColor);
+  const setColor = useStore((s) => s.setIconColor);
+  const editorType = useStore((s) => s.config.editorType);
 
   return (
     <>
@@ -62,7 +63,7 @@ const Toolbar: React.FC<ToolbarProps> = () => {
                   <rect x={3} y={3} width={10} height={10}></rect>
                 </svg>
               ) : (
-                <BoundingBox size={16} weight="fill" />
+                <BoundingBoxIcon size={16} weight="fill" />
               )}
             </label>
           )}

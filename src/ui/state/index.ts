@@ -1,5 +1,5 @@
 import { IconStyle } from "@phosphor-icons/core";
-import { atom, selector } from "recoil";
+import { create } from "zustand";
 import Fuse from "fuse.js";
 
 import { PluginConfig } from "@common/types";
@@ -19,42 +19,51 @@ const fuse = new Fuse(icons, {
   useExtendedSearch: true,
 });
 
-export const configAtom = atom<PluginConfig>({
-  key: "configAtom",
-  default: { editorType: "figma" },
-});
+function getFilteredIcons(query: string): ReadonlyArray<IconEntry> {
+  const q = query.trim().toLowerCase();
+  if (!q) return icons;
+  return fuse.search(q).map((value) => value.item);
+}
 
-export const iconWeightAtom = atom<IconStyle>({
-  key: "iconWeightAtom",
-  default: IconStyle.REGULAR,
-  effects: [StorageProxy.register],
-});
+interface AppState {
+  config: PluginConfig;
+  iconWeight: IconStyle;
+  iconColor: string;
+  searchQuery: string;
+  flatten: boolean;
+  filteredIcons: ReadonlyArray<IconEntry>;
 
-export const iconColorAtom = atom<string>({
-  key: "iconColorAtom",
-  default: "currentColor",
-  effects: [StorageProxy.register],
-});
+  setConfig: (config: PluginConfig) => void;
+  setIconWeight: (weight: IconStyle) => void;
+  setIconColor: (color: string) => void;
+  setSearchQuery: (query: string) => void;
+  setFlatten: (flatten: boolean) => void;
+}
 
-export const searchQueryAtom = atom<string>({
-  key: "searchQueryAtom",
-  default: "",
-});
+export const useStore = create<AppState>((set) => ({
+  config: { editorType: "figma" },
+  iconWeight: IconStyle.REGULAR,
+  iconColor: "currentColor",
+  searchQuery: "",
+  flatten: true,
+  filteredIcons: icons,
 
-export const flattenAtom = atom<boolean>({
-  key: "flattenAtom",
-  default: true,
-  effects: [StorageProxy.register],
-});
-
-export const filteredQueryResultsSelector = selector<ReadonlyArray<IconEntry>>({
-  key: "filteredQueryResultsSelector",
-  get: ({ get }) => {
-    const query = get(searchQueryAtom).trim().toLowerCase();
-    if (!query) return icons;
-
-    return new Promise((resolve) =>
-      resolve(fuse.search(query).map((value) => value.item))
-    );
+  setConfig: (config) => set({ config }),
+  setIconWeight: (iconWeight) => {
+    set({ iconWeight });
+    StorageProxy.requestSet({ key: "iconWeightAtom", value: iconWeight });
   },
-});
+  setIconColor: (iconColor) => {
+    set({ iconColor });
+    StorageProxy.requestSet({ key: "iconColorAtom", value: iconColor });
+  },
+  setSearchQuery: (searchQuery) =>
+    set({ searchQuery, filteredIcons: getFilteredIcons(searchQuery) }),
+  setFlatten: (flatten) => {
+    set({ flatten });
+    StorageProxy.requestSet({ key: "flattenAtom", value: flatten });
+  },
+}));
+
+// Initialize storage hydration
+StorageProxy.hydrate(useStore);

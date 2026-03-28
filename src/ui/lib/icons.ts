@@ -5,5 +5,5 @@ import { IconEntry } from ".";
 
 export const icons: ReadonlyArray<IconEntry> = iconData.map((entry) => ({
   ...entry,
-  Icon: Icons[entry.pascal_name as keyof typeof Icons] as Icons.Icon,
+  Icon: Icons[`${entry.pascal_name}Icon` as keyof typeof Icons] as Icons.Icon,
 }));
